@@ -3,7 +3,7 @@ Parking-System
 
 Parking System for CS414
 
-1. Problem Statement: A Parking System
+1 Problem Statement: A Parking System
 Suppose that a city is constructing a computerized parking garage. We will implement the parking system. We will start with a small set of features and over a couple of iterations, build a much larger system. The first three deliverables (A2, A3, and A4) are part of the the first iteration. The deliverable correspond to analysis, design, and implementation techniques. After the first iteration, we will have one more iteration with A5 as the deliverable.
 Since you will not have actual hardware (e.g., card reader, ticket dispenser, garage gate, and garage signs) you will implement them in software (through user interfaces). The UI must be interactive, which means that the driver using it must be able to type or click on something to enter or exit through the gate, enter ticket information, etc.
 Here we provide an overview of the parking system and list all the features that are of interest to us. Your job will be to flesh out the requirements. We will also provide a high level plan that will guide the two iterations.
@@ -17,7 +17,7 @@ The system keeps track of the current levels of occupancy in the garage and disp
 
 We will extend the application to support multiple entry and exit gates. This brings up the distributed nature of the system. Each gate is connected to a central location for processing payments and collecting usage data. We will also implement a graphical user interface to support the old and new features.
 
-2. Deliverables
+2 Deliverables
 
 The project will be submitted in stages. Submit an electronic copy of the deliverables at each stage. For A2 and A3, the deliverable will be a PDF document. For A4, you will submit both a PDF document and code as a jar file. For A5, you will turn in code as a single jar file.
 You must embed all the images (i.e. jpg, bmp, etc.) in the PDF file as your submission. Any tool specific model files will NOT be accepted. Do not submit images as separate files. Please make sure that you include your name on the front page of all submitted documents.
