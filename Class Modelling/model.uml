@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_bwoQgD9YEeSeiNAKA6I1eQ" name="model">
-  <packageImport xmi:type="uml:PackageImport" xmi:id="_i-VqwEdjEeSbCrVjwyiu3Q">
-    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
-  </packageImport>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_ExhRYEdkEeSbCrVjwyiu3Q">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Class" xmi:id="_IFEAMEcsEeSbCrVjwyiu3Q" name="Gate">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_KkBPwEdJEeSbCrVjwyiu3Q" name="isOpen" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LNV5kEdJEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LNV5kUdJEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_LNWgoEdJEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-  </packagedElement>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_s23fwEgLEeSnwtwXVApyPg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
   <packagedElement xmi:type="uml:Class" xmi:id="_cu-DcEcsEeSbCrVjwyiu3Q" name="ParkingGarage">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_OD5MwEdFEeSbCrVjwyiu3Q" name="name" visibility="private" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -26,9 +16,6 @@
       </defaultValue>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_OlfDcEcwEeSbCrVjwyiu3Q" name="ExitGate">
-    <generalization xmi:type="uml:Generalization" xmi:id="_RqrYUEdoEeSbCrVjwyiu3Q" general="_IFEAMEcsEeSbCrVjwyiu3Q"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_ULfCoEcwEeSbCrVjwyiu3Q" name="Ticket">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_t0cs8EdIEeSbCrVjwyiu3Q" name="id" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -38,8 +25,24 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_LacMQEgLEeSnwtwXVApyPg" name="entryTime" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#DateTime"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LtkjoEgLEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LtlKsEgLEeSnwtwXVApyPg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_LtlxwEgLEeSnwtwXVApyPg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_idCIsEgMEeSnwtwXVApyPg" name="isPaid" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_isJiwEgMEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_isKJ0EgMEeSnwtwXVApyPg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_isKJ0UgMEeSnwtwXVApyPg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_VcYp0EcwEeSbCrVjwyiu3Q" name="GarageRate">
+  <packagedElement xmi:type="uml:Class" xmi:id="_VcYp0EcwEeSbCrVjwyiu3Q" name="ParkingRate">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_4bD98EdWEeSbCrVjwyiu3Q" name="timeInterval" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5uYnAEdWEeSbCrVjwyiu3Q" value="1"/>
@@ -57,9 +60,6 @@
       </defaultValue>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_7GR78EczEeSbCrVjwyiu3Q" name="EntryGate">
-    <generalization xmi:type="uml:Generalization" xmi:id="_RSvZcEdoEeSbCrVjwyiu3Q" general="_IFEAMEcsEeSbCrVjwyiu3Q"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_--CQoEczEeSbCrVjwyiu3Q" name="CarDriver">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Ysv6cEdIEeSbCrVjwyiu3Q" name="name" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -69,8 +69,15 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_OTk_wEgPEeSnwtwXVApyPg" name="licNo" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PYrmoEgPEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PYrmoUgPEeSnwtwXVApyPg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_PYrmokgPEeSnwtwXVApyPg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_cx0CcEc0EeSbCrVjwyiu3Q" name="NoPaymentException"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_BvCjMEc1EeSbCrVjwyiu3Q" name="GarageAdmin">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_GfSrgEdIEeSbCrVjwyiu3Q" name="username" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -96,8 +103,23 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7H7QIEhDEeSXyqUh-ofL-w" name="securityQuestion" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7dc0MEhDEeSXyqUh-ofL-w" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7depYEhDEeSXyqUh-ofL-w" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_7dfQcEhDEeSXyqUh-ofL-w">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7rdbAEhDEeSXyqUh-ofL-w" name="securityAnswer" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_76-dsEhDEeSXyqUh-ofL-w" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_76_EwEhDEeSXyqUh-ofL-w" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_77AS4EhDEeSXyqUh-ofL-w">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_R5TLUEc1EeSbCrVjwyiu3Q" name="AccountAudit"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_E1e6QEc2EeSbCrVjwyiu3Q" name="Payment">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_PRBm4EdIEeSbCrVjwyiu3Q" name="amount" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
@@ -107,115 +129,14 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_KJETwEc2EeSbCrVjwyiu3Q" name="Time">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_bs4DkEdIEeSbCrVjwyiu3Q" name="hour" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cT3LEEdIEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cT3LEUdIEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_cT3LEkdIEeSbCrVjwyiu3Q">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_rXCPQEgMEeSnwtwXVApyPg" name="paidOn" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#DateTime"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sCC7IEgMEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sCDiMEgMEeSnwtwXVApyPg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_sCDiMUgMEeSnwtwXVApyPg">
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_cputYEdIEeSbCrVjwyiu3Q" name="day" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dKDMMEdIEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dKDMMUdIEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_dKDzQEdIEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_ds9E8EdIEeSbCrVjwyiu3Q" name="month" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePo7QEdIEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ePpiUEdIEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_ePqJYEdIEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_r5h4YEdIEeSbCrVjwyiu3Q" name="year" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sWtjoEdIEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sWtjoUdIEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_sWuKsEdIEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_IXwecEdHEeSbCrVjwyiu3Q" name="DriverLicense">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_Wk6rQEdIEeSbCrVjwyiu3Q" name="licenseNo" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xm0NIEdIEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Xm0NIUdIEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_Xm00MEdIEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_N4K_wEdXEeSbCrVjwyiu3Q" name="ParkingSize">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_IXsZwEdXEeSbCrVjwyiu3Q" name="size" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JfXMcEdXEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JfXMcUdXEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_JfXzgEdXEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_Hr12AEd7EeSbCrVjwyiu3Q" name="time" type="_KJETwEc2EeSbCrVjwyiu3Q" association="_Hr3EIEd7EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hr12AUd7EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hr12Akd7EeSbCrVjwyiu3Q" value="1"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_IIWy4Ed7EeSbCrVjwyiu3Q" name="time" type="_KJETwEc2EeSbCrVjwyiu3Q" association="_IIYBAEd7EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IIWy4Ud7EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IIWy4kd7EeSbCrVjwyiu3Q" value="1"/>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="__PKSgEdXEeSbCrVjwyiu3Q" name="is located at"/>
-  <packagedElement xmi:type="uml:Class" xmi:id="_xeWdwEdGEeSbCrVjwyiu3Q" name="Address">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_xPmaoEdHEeSbCrVjwyiu3Q" name="street" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xiloEEdHEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xiloEUdHEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_ximPIEdHEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_xpjywEdHEeSbCrVjwyiu3Q" name="city" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_x3SFsEdHEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_x3SFsUdHEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_x3SswEdHEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_yCkvsEdHEeSbCrVjwyiu3Q" name="zipcode" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yLOVYEdHEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yLOVYUdHEeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_yLO8cEdHEeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_i7UhEEdlEeSbCrVjwyiu3Q" name="ParkingOccupancy">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_14aikEd4EeSbCrVjwyiu3Q" name="occupiedSlots" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5BNfgEd4EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5BOGkEd4EeSbCrVjwyiu3Q" value="1"/>
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_5BOtoEd4EeSbCrVjwyiu3Q">
-        <value xsi:nil="true"/>
-      </defaultValue>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_vIhBQEdmEeSbCrVjwyiu3Q" name="records" memberEnd="_vIhBQUdmEeSbCrVjwyiu3Q _vIfzIEdmEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_vIhBQUdmEeSbCrVjwyiu3Q" name="parkingAvailability" type="_N4K_wEdXEeSbCrVjwyiu3Q" association="_vIhBQEdmEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vIhBQkdmEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vIhBQ0dmEeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_vIfzIEdmEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_vIhBQEdmEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vIfzIUdmEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vIfzIkdmEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_8jZckEdnEeSbCrVjwyiu3Q" name="employs" memberEnd="_8jZckUdnEeSbCrVjwyiu3Q _8jY1gEdnEeSbCrVjwyiu3Q">
     <ownedEnd xmi:type="uml:Property" xmi:id="_8jZckUdnEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_8jZckEdnEeSbCrVjwyiu3Q">
@@ -227,44 +148,14 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8jY1gkdnEeSbCrVjwyiu3Q" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_EI0V0EdoEeSbCrVjwyiu3Q" name="is entered by" memberEnd="_EI0V0UdoEeSbCrVjwyiu3Q _EIzHsEdoEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_EI0V0UdoEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_EI0V0EdoEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EI0V0kdoEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI0V00doEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_EIzHsEdoEeSbCrVjwyiu3Q" name="gate" type="_7GR78EczEeSbCrVjwyiu3Q" association="_EI0V0EdoEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EIzHsUdoEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIzHskdoEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_aT0_cEdoEeSbCrVjwyiu3Q" name="records" memberEnd="_aT0_cUdoEeSbCrVjwyiu3Q _aT0YYEdoEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_aT0_cUdoEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_aT0_cEdoEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aT0_ckdoEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aT0_c0doEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_aT0YYEdoEeSbCrVjwyiu3Q" name="currentOccupancy" type="_i7UhEEdlEeSbCrVjwyiu3Q" association="_aT0_cEdoEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aT0YYUdoEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aT0YYkdoEeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_n8RyIEdoEeSbCrVjwyiu3Q" name="charges" memberEnd="_n8RyIUdoEeSbCrVjwyiu3Q _n8RLEEdoEeSbCrVjwyiu3Q">
     <ownedEnd xmi:type="uml:Property" xmi:id="_n8RyIUdoEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_n8RyIEdoEeSbCrVjwyiu3Q">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n8RyIkdoEeSbCrVjwyiu3Q" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n8RyI0doEeSbCrVjwyiu3Q" value="1"/>
     </ownedEnd>
     <ownedEnd xmi:type="uml:Property" xmi:id="_n8RLEEdoEeSbCrVjwyiu3Q" name="garageRate" type="_VcYp0EcwEeSbCrVjwyiu3Q" association="_n8RyIEdoEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n8RLEUdoEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n8RLEkdoEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_JTBiIEduEeSbCrVjwyiu3Q" name="is exited by" memberEnd="_JTBiIUduEeSbCrVjwyiu3Q _JTAUAEduEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_JTBiIUduEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_JTBiIEduEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JTBiIkduEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JTBiI0duEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_JTAUAEduEeSbCrVjwyiu3Q" name="exitGate" type="_OlfDcEcwEeSbCrVjwyiu3Q" association="_JTBiIEduEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JTAUAUduEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JTAUAkduEeSbCrVjwyiu3Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n8RLEUdoEeSbCrVjwyiu3Q"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n8RLEkdoEeSbCrVjwyiu3Q" value="*"/>
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Enumeration" xmi:id="_CuZiEEdvEeSbCrVjwyiu3Q" name="PaymentType">
@@ -281,46 +172,6 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YjyhAkdvEeSbCrVjwyiu3Q" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_sdN3oEdxEeSbCrVjwyiu3Q" name="is responsible for" memberEnd="_sdN3oUdxEeSbCrVjwyiu3Q _sdNQkEdxEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_sdN3oUdxEeSbCrVjwyiu3Q" name="noPaymentException" type="_cx0CcEc0EeSbCrVjwyiu3Q" association="_sdN3oEdxEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sdN3okdxEeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sdN3o0dxEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_sdNQkEdxEeSbCrVjwyiu3Q" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_sdN3oEdxEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sdNQkUdxEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sdNQkkdxEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_unL00EdxEeSbCrVjwyiu3Q" name="was returned with" memberEnd="_unL00UdxEeSbCrVjwyiu3Q _unLNwEdxEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_unL00UdxEeSbCrVjwyiu3Q" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_unL00EdxEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_unL00kdxEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_unL000dxEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_unLNwEdxEeSbCrVjwyiu3Q" name="noPaymentException" type="_cx0CcEc0EeSbCrVjwyiu3Q" association="_unL00EdxEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_unLNwUdxEeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_unLNwkdxEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_qE6HA0dyEeSbCrVjwyiu3Q" name="is made to" memberEnd="_qE6HBEdyEeSbCrVjwyiu3Q _qE6HAEdyEeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_qE6HBEdyEeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_qE6HA0dyEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qE6HBUdyEeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qE6HBkdyEeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_qE6HAEdyEeSbCrVjwyiu3Q" name="payment" type="_E1e6QEc2EeSbCrVjwyiu3Q" association="_qE6HA0dyEeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qE6HAUdyEeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qE6HAkdyEeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_LfI6wEd2EeSbCrVjwyiu3Q" name="owns" memberEnd="_LfI6wUd2EeSbCrVjwyiu3Q _LfHsoEd2EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_LfI6wUd2EeSbCrVjwyiu3Q" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_LfI6wEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LfI6wkd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LfI6w0d2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_LfHsoEd2EeSbCrVjwyiu3Q" name="driverLicense" type="_IXwecEdHEeSbCrVjwyiu3Q" association="_LfI6wEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LfHsoUd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LfHsokd2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_RQ428Ed2EeSbCrVjwyiu3Q" name="issues" memberEnd="_RQ428Ud2EeSbCrVjwyiu3Q _RQ3o0Ed2EeSbCrVjwyiu3Q">
     <ownedEnd xmi:type="uml:Property" xmi:id="_RQ428Ud2EeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_RQ428Ed2EeSbCrVjwyiu3Q">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RQ428kd2EeSbCrVjwyiu3Q" value="1"/>
@@ -331,116 +182,155 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RQ3o0kd2EeSbCrVjwyiu3Q" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_Rs42cEd2EeSbCrVjwyiu3Q" name="is issued at" memberEnd="_Rs42cUd2EeSbCrVjwyiu3Q _Rs4PYEd2EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_Rs42cUd2EeSbCrVjwyiu3Q" name="entryGate" type="_7GR78EczEeSbCrVjwyiu3Q" association="_Rs42cEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Rs42ckd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Rs42c0d2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_Rs4PYEd2EeSbCrVjwyiu3Q" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_Rs42cEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Rs4PYUd2EeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Rs4PYkd2EeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_SJ14MEd2EeSbCrVjwyiu3Q" name="is returned at" memberEnd="_SJ14MUd2EeSbCrVjwyiu3Q _SJ1RIEd2EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_SJ14MUd2EeSbCrVjwyiu3Q" name="exitGate" type="_OlfDcEcwEeSbCrVjwyiu3Q" association="_SJ14MEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SJ14Mkd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SJ14M0d2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_SJ1RIEd2EeSbCrVjwyiu3Q" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_SJ14MEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SJ1RIUd2EeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SJ1RIkd2EeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_4188o0d2EeSbCrVjwyiu3Q" name="records" memberEnd="_4188pEd2EeSbCrVjwyiu3Q _4188oEd2EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_4188pEd2EeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_4188o0d2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4188pUd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4188pkd2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_4188oEd2EeSbCrVjwyiu3Q" name="noPaymentException" type="_cx0CcEc0EeSbCrVjwyiu3Q" association="_4188o0d2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4188oUd2EeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4188okd2EeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_5SGtIEd2EeSbCrVjwyiu3Q" name="records" memberEnd="_5SGtIUd2EeSbCrVjwyiu3Q _5SFfAEd2EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_5SGtIUd2EeSbCrVjwyiu3Q" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_5SGtIEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5SGtIkd2EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5SGtI0d2EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_5SFfAEd2EeSbCrVjwyiu3Q" name="accountAudit" type="_R5TLUEc1EeSbCrVjwyiu3Q" association="_5SGtIEd2EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5SFfAUd2EeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5SFfAkd2EeSbCrVjwyiu3Q" value="*"/>
-    </ownedEnd>
-  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_0ZVx8Ed3EeSbCrVjwyiu3Q" name="is paid for" memberEnd="_0ZVx8Ud3EeSbCrVjwyiu3Q _0ZUj0Ed3EeSbCrVjwyiu3Q">
     <ownedEnd xmi:type="uml:Property" xmi:id="_0ZVx8Ud3EeSbCrVjwyiu3Q" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_0ZVx8Ed3EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0ZVx8kd3EeSbCrVjwyiu3Q" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0ZVx8kd3EeSbCrVjwyiu3Q"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0ZVx80d3EeSbCrVjwyiu3Q" value="1"/>
     </ownedEnd>
     <ownedEnd xmi:type="uml:Property" xmi:id="_0ZUj0Ed3EeSbCrVjwyiu3Q" name="payment" type="_E1e6QEc2EeSbCrVjwyiu3Q" association="_0ZVx8Ed3EeSbCrVjwyiu3Q">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0ZUj0Ud3EeSbCrVjwyiu3Q"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0ZUj0kd3EeSbCrVjwyiu3Q" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0ZUj0kd3EeSbCrVjwyiu3Q" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_MhonoEd4EeSbCrVjwyiu3Q" name="lives at" memberEnd="_MhonoUd4EeSbCrVjwyiu3Q _MhoAkEd4EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_MhonoUd4EeSbCrVjwyiu3Q" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_MhonoEd4EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Mhonokd4EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Mhono0d4EeSbCrVjwyiu3Q" value="1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_sXMy8EfkEeSnwtwXVApyPg" name="has" memberEnd="_sXMy8UfkEeSnwtwXVApyPg _sXLk0EfkEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_sXMy8UfkEeSnwtwXVApyPg" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_sXMy8EfkEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sXMy8kfkEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sXMy80fkEeSnwtwXVApyPg" value="1"/>
     </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_MhoAkEd4EeSbCrVjwyiu3Q" name="address" type="_xeWdwEdGEeSbCrVjwyiu3Q" association="_MhonoEd4EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MhoAkUd4EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MhoAkkd4EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_JjaGgEd5EeSbCrVjwyiu3Q" name="is done on" memberEnd="_JjaGgUd5EeSbCrVjwyiu3Q _JjZfcEd5EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_JjaGgUd5EeSbCrVjwyiu3Q" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_JjaGgEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JjaGgkd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JjaGg0d5EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_JjZfcEd5EeSbCrVjwyiu3Q" name="accountAudit" type="_R5TLUEc1EeSbCrVjwyiu3Q" association="_JjaGgEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JjZfcUd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JjZfckd5EeSbCrVjwyiu3Q" value="1"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_sXLk0EfkEeSnwtwXVApyPg" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_sXMy8EfkEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sXLk0UfkEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sXLk0kfkEeSnwtwXVApyPg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_MS2vUEd5EeSbCrVjwyiu3Q" name="is done by" memberEnd="_MS2vUUd5EeSbCrVjwyiu3Q _MS2IQEd5EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_MS2vUUd5EeSbCrVjwyiu3Q" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_MS2vUEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MS2vUkd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MS2vU0d5EeSbCrVjwyiu3Q" value="1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0kXBo0fkEeSnwtwXVApyPg" name="adds/disables" memberEnd="_0kXBpEfkEeSnwtwXVApyPg _0kXBoEfkEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_0kXBpEfkEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_0kXBo0fkEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0kXBpUfkEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0kXBpkfkEeSnwtwXVApyPg" value="1"/>
     </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_MS2IQEd5EeSbCrVjwyiu3Q" name="accountAudit" type="_R5TLUEc1EeSbCrVjwyiu3Q" association="_MS2vUEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MS2IQUd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MS2IQkd5EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_sH8RkEd5EeSbCrVjwyiu3Q" name="is issued at" memberEnd="_sH8RkUd5EeSbCrVjwyiu3Q _sH7qgEd5EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_sH8RkUd5EeSbCrVjwyiu3Q" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_sH8RkEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sH8Rkkd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sH8Rk0d5EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_sH7qgEd5EeSbCrVjwyiu3Q" name="time" type="_KJETwEc2EeSbCrVjwyiu3Q" association="_sH8RkEd5EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sH7qgUd5EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sH7qgkd5EeSbCrVjwyiu3Q" value="1"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_0kXBoEfkEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_0kXBo0fkEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0kXBoUfkEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0kXBokfkEeSnwtwXVApyPg" value="*"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_BcEWgEd6EeSbCrVjwyiu3Q" name="is done at" memberEnd="_BcEWgUd6EeSbCrVjwyiu3Q _BcDIYEd6EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_BcEWgUd6EeSbCrVjwyiu3Q" name="payment" type="_E1e6QEc2EeSbCrVjwyiu3Q" association="_BcEWgEd6EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BcEWgkd6EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BcEWg0d6EeSbCrVjwyiu3Q" value="1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_hRh-sEfnEeSnwtwXVApyPg" name="parks in" memberEnd="_hRh-sUfnEeSnwtwXVApyPg _hRhXoEfnEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_hRh-sUfnEeSnwtwXVApyPg" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_hRh-sEfnEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hRh-skfnEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hRh-s0fnEeSnwtwXVApyPg" value="*"/>
     </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_BcDIYEd6EeSbCrVjwyiu3Q" name="time" type="_KJETwEc2EeSbCrVjwyiu3Q" association="_BcEWgEd6EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BcDIYUd6EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BcDIYkd6EeSbCrVjwyiu3Q" value="1"/>
-    </ownedEnd>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_Hr3EIEd7EeSbCrVjwyiu3Q" name="parkingSize_time_1" memberEnd="_Hr3EIUd7EeSbCrVjwyiu3Q _Hr12AEd7EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_Hr3EIUd7EeSbCrVjwyiu3Q" name="parkingSize" type="_N4K_wEdXEeSbCrVjwyiu3Q" association="_Hr3EIEd7EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hr3EIkd7EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hr3EI0d7EeSbCrVjwyiu3Q" value="1"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_hRhXoEfnEeSnwtwXVApyPg" name="parkingGarage" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_hRh-sEfnEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hRhXoUfnEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hRhXokfnEeSnwtwXVApyPg" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_IIYBAEd7EeSbCrVjwyiu3Q" name="parkingSize_time_2" memberEnd="_IIYBAUd7EeSbCrVjwyiu3Q _IIWy4Ed7EeSbCrVjwyiu3Q">
-    <ownedEnd xmi:type="uml:Property" xmi:id="_IIYBAUd7EeSbCrVjwyiu3Q" name="parkingSize" type="_N4K_wEdXEeSbCrVjwyiu3Q" association="_IIYBAEd7EeSbCrVjwyiu3Q">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IIYBAkd7EeSbCrVjwyiu3Q" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IIYBA0d7EeSbCrVjwyiu3Q" value="1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tUhPcEfnEeSnwtwXVApyPg" name="changes password" memberEnd="_tUhPcUfnEeSnwtwXVApyPg _tUgBUEfnEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tUhPcUfnEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_tUhPcEfnEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tUhPckfnEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tUhPc0fnEeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tUgBUEfnEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_tUhPcEfnEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tUgoYEfnEeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tUgoYUfnEeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_xYSKYEfoEeSnwtwXVApyPg" name="configures/views" memberEnd="_xYSKYUfoEeSnwtwXVApyPg _xYRjUEfoEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_xYSKYUfoEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_xYSKYEfoEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xYSKYkfoEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xYSKY0foEeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_xYRjUEfoEeSnwtwXVApyPg" name="garageRate" type="_VcYp0EcwEeSbCrVjwyiu3Q" association="_xYSKYEfoEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xYRjUUfoEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xYRjUkfoEeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_oILUIEfsEeSnwtwXVApyPg" name="ParkingSize"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_vRvr8Ef5EeSnwtwXVApyPg" name="views" memberEnd="_vRvr8Uf5EeSnwtwXVApyPg _vRvE4Ef5EeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_vRvr8Uf5EeSnwtwXVApyPg" name="carDriver" type="_cu-DcEcsEeSbCrVjwyiu3Q" association="_vRvr8Ef5EeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vRvr8kf5EeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vRvr80f5EeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_vRvE4Ef5EeSnwtwXVApyPg" name="parkingAvailability" type="_oILUIEfsEeSnwtwXVApyPg" association="_vRvr8Ef5EeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vRvE4Uf5EeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vRvE4kf5EeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_wrqFMEf5EeSnwtwXVApyPg" name="views" memberEnd="_wrqFMUf5EeSnwtwXVApyPg _wro3EEf5EeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_wrqFMUf5EeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_wrqFMEf5EeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wrqFMkf5EeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wrqFM0f5EeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_wro3EEf5EeSnwtwXVApyPg" name="parkingAvailability" type="_oILUIEfsEeSnwtwXVApyPg" association="_wrqFMEf5EeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wro3EUf5EeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wro3Ekf5EeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6Y9BMEgKEeSnwtwXVApyPg" name="views" memberEnd="_6Y9BMUgKEeSnwtwXVApyPg _6Y8aIEgKEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6Y9BMUgKEeSnwtwXVApyPg" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_6Y9BMEgKEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6Y9BMkgKEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6Y9BM0gKEeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6Y8aIEgKEeSnwtwXVApyPg" name="parkingRate" type="_VcYp0EcwEeSbCrVjwyiu3Q" association="_6Y9BMEgKEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6Y8aIUgKEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6Y8aIkgKEeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_8uZcUEgPEeSnwtwXVApyPg" name="AuditRecord">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_OLm5EEgbEeSaWbiDYXDf_Q" name="createdOn" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#DateTime"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Om4f0EgbEeSaWbiDYXDf_Q" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Om6VAEgbEeSaWbiDYXDf_Q" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_Om7jIEgbEeSaWbiDYXDf_Q">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_3c0PsE16EeSGwJSt5FEtHA" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_3c1d0E16EeSGwJSt5FEtHA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3c0PsU16EeSGwJSt5FEtHA" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3c0Psk16EeSGwJSt5FEtHA" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_F0F1gEgQEeSnwtwXVApyPg" name="is associated with" memberEnd="_F0F1gUgQEeSnwtwXVApyPg _F0FOcEgQEeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_F0F1gUgQEeSnwtwXVApyPg" name="auditRecord" type="_8uZcUEgPEeSnwtwXVApyPg" association="_F0F1gEgQEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F0F1gkgQEeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_F0F1g0gQEeSnwtwXVApyPg" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_F0FOcEgQEeSnwtwXVApyPg" name="garageAdmin" type="_BvCjMEc1EeSbCrVjwyiu3Q" association="_F0F1gEgQEeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F0FOcUgQEeSnwtwXVApyPg" value="2"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_F0FOckgQEeSnwtwXVApyPg" value="2"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_H9sw4EgREeSnwtwXVApyPg" name="NoPaymentException">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_VUtOQEgREeSnwtwXVApyPg" name="recordedOn" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#DateTime"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_W5O8EEgREeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_W5PjIEgREeSnwtwXVApyPg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_W5QKMEgREeSnwtwXVApyPg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cXYm0EgREeSnwtwXVApyPg" name="responsible for" memberEnd="_cXYm0UgREeSnwtwXVApyPg _cXXYsEgREeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cXYm0UgREeSnwtwXVApyPg" name="carDriver" type="_--CQoEczEeSbCrVjwyiu3Q" association="_cXYm0EgREeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cXYm0kgREeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cXYm00gREeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cXXYsEgREeSnwtwXVApyPg" name="noPaymentException" type="_H9sw4EgREeSnwtwXVApyPg" association="_cXYm0EgREeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cXXYsUgREeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cXXYskgREeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cxGHUEgREeSnwtwXVApyPg" name="recorded for" memberEnd="_cxGHUUgREeSnwtwXVApyPg _cxFgQEgREeSnwtwXVApyPg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cxGHUUgREeSnwtwXVApyPg" name="ticket" type="_ULfCoEcwEeSbCrVjwyiu3Q" association="_cxGHUEgREeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cxGHUkgREeSnwtwXVApyPg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cxGHU0gREeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cxFgQEgREeSnwtwXVApyPg" name="noPaymentException" type="_H9sw4EgREeSnwtwXVApyPg" association="_cxGHUEgREeSnwtwXVApyPg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cxFgQUgREeSnwtwXVApyPg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cxFgQkgREeSnwtwXVApyPg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_3c1d0E16EeSGwJSt5FEtHA" name="auditRecord_garageAdmin_1" memberEnd="_3c1d0U16EeSGwJSt5FEtHA _3c0PsE16EeSGwJSt5FEtHA">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_3c1d0U16EeSGwJSt5FEtHA" name="auditRecord" type="_8uZcUEgPEeSnwtwXVApyPg" association="_3c1d0E16EeSGwJSt5FEtHA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3c1d0k16EeSGwJSt5FEtHA" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3c1d0016EeSGwJSt5FEtHA" value="1"/>
     </ownedEnd>
   </packagedElement>
 </uml:Model>
