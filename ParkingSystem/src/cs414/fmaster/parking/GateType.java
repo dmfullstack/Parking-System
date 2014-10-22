@@ -1,4 +1,4 @@
-package fmaster.parking.app;
+package cs414.fmaster.parking;
 /**
  * @author masterf
  *
