@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cs414.fmaster.parking;
+package cs414.fmaster.parking.controller;
 
 /**
  * @author MasterF
