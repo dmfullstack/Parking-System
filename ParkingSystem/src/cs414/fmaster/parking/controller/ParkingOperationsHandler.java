@@ -38,8 +38,11 @@ public class ParkingOperationsHandler {
 		return getCurrentParkingSize() - getCurrentAvailability();
 	}
 	
-	public void updateParkingSize(int newSizeInt) {
-		db.configureParkingSize(newSizeInt);
+	public void updateParkingSize(int newSize) {
+		int newAvailableSpots = newSize - getCurrentParkingSize();
+		int newTotalAvailability = newAvailableSpots + getCurrentAvailability();
+		db.updateParkingAvailability(newTotalAvailability);
+		db.configureParkingSize(newSize);
 	}
 	
 	public int getCurrentAvailability() {
@@ -69,6 +72,10 @@ public class ParkingOperationsHandler {
 		return parkingRates;
 	}
 
+	public void updateParkingRates(List<ParkingRate> parkingRates) {
+		db.updateParkingRates(parkingRates);
+	}
+	
 	public boolean isTicketValid(int ticketNumber) {
 		boolean isValidTicket = db.isTicketValidForExit(ticketNumber);
 		return isValidTicket;

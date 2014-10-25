@@ -28,7 +28,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 	private static final String CREATE_TICKETS = "CREATE TABLE tickets (ticket_no INTEGER NOT NULL AUTO_INCREMENT, issue_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, is_submitted BOOLEAN DEFAULT FALSE, is_paid BOOLEAN DEFAULT FALSE, PRIMARY KEY (ticket_no))";
 	private static final String CREATE_PAYMENTS = "CREATE TABLE payments (amount DECIMAL(6,2) NOT NULL, ticket_no INTEGER, paid_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (ticket_no) REFERENCES tickets(ticket_no))";
 	private static final String CREATE_PAYMENT_EXCEPTIONS = "CREATE TABLE payment_exceptions (name VARCHAR(20) NOT NULL, license VARCHAR(20) NOT NULL, amount DECIMAL(6,2) NOT NULL)";
-	
+
 	private static final String SELECT_PARKING_RATES = "SELECT time_interval AS Hours, rate as Rate FROM parking_rates";
 	private static final String SELECT_MAXIMUM_RATE = "SELECT rate as Rate FROM parking_rates WHERE time_interval = 24";
 	private static final String SELECT_CURRENT_PARKING_SIZE = "SELECT size FROM parking_size_history WHERE end_time IS NULL";
@@ -43,7 +43,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 	private static final String SELECT_SECURITY_QUESTION = "SELECT security_question FROM accounts WHERE username = ?";
 	private static final String SELECT_SECURITY_ANSWER = "SELECT security_answer FROM accounts WHERE username = ?";
 	private static final String SELECT_LOGGED_IN_ADMIN = "SELECT username FROM accounts WHERE is_logged_in = true";
-	
+
 	private static final String INSERT_PARKING_SIZE = "INSERT INTO parking_size_history(size) VALUES (?)";
 	private static final String INSERT_PARKING_AVAILABILITY = "INSERT INTO parking_availability_history(availability) VALUES (?)";
 	private static final String INSERT_PARKING_RATE = "INSERT INTO parking_rates VALUES (?, ?)";
@@ -56,13 +56,14 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	private static final String UPDATE_PARKING_SIZE_ENDTIME = "UPDATE parking_size_history SET end_time=? WHERE end_time IS NULL";
 	private static final String UPDATE_PARKING_AVAILABILITY_ENDTIME = "UPDATE parking_availability_history SET end_time=? WHERE end_time IS NULL";
+	private static final String UPDATE_PARKING_RATE = "UPDATE parking_rates SET rate = ? WHERE time_interval = ?";
 	private static final String UPDATE_TICKET_PAID = "UPDATE tickets SET is_paid = true WHERE ticket_no = ?";
 	private static final String UPDATE_TICKET_SUBMITTED = "UPDATE tickets SET is_submitted = true WHERE ticket_no = ?";
 	private static final String UPDATE_ADMIN_LOGGED_IN = "UPDATE accounts SET is_logged_in = true WHERE username = ?";
 	private static final String UPDATE_ADMIN_LOGGED_OUT = "UPDATE accounts SET is_logged_in = false WHERE is_logged_in = true";
 	private static final String UPDATE_ADMIN_PASSWORD = "UPDATE accounts SET password = ? WHERE username = ?";
 	private static final String UPDATE_DISABLE_ACCOUNT = "UPDATE accounts SET is_active = false WHERE username = ?";
-	
+
 	private static final String ALTER_TICKETS = "ALTER TABLE tickets AUTO_INCREMENT = 100000";
 
 	protected ParkingDatabaseAccess() {
@@ -77,13 +78,14 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		return instance;
 	}
 
-	//Method to initialize database tables
+	// Method to initialize database tables
 	private void initializeParkingDatabase() {
+		int initialSize = 5;
 		createParkingSize();
-		insertParkingSize(5);
-		
+		insertParkingSize(initialSize);
+
 		createParkingAvailability();
-		insertParkingAvailability(5);
+		insertParkingAvailability(initialSize);
 
 		createParkingRates();
 		insertParkingRate(0.5, 20.5);
@@ -95,13 +97,13 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		createAccountTable();
 		insertAccountDetails("admin", "admin", "admin", "admin");
 		createAudit();
-		
+
 		createTickets();
 		createPayments();
 		createPaymentExceptions();
 	}
 
-	//Methods for Parking Size
+	// Methods for Parking Size
 	private void createParkingSize() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -179,7 +181,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	//Methods for Parking Availability
+	// Methods for Parking Availability
 	private void createParkingAvailability() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -217,7 +219,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_CURRENT_PARKING_AVAILABILITY);
@@ -245,12 +247,17 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		updateCurrentParkingAvailabilityEndTime();
 		insertParkingAvailability(avail - 1);
 	}
+	
+	public void updateParkingAvailability(int availability) {
+		updateCurrentParkingAvailabilityEndTime();
+		insertParkingAvailability(availability);
+	}
 
 	private void updateCurrentParkingAvailabilityEndTime() {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_PARKING_AVAILABILITY_ENDTIME);
@@ -264,7 +271,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	//Methods for Parking Rates
+	// Methods for Parking Rates
 	private void createParkingRates() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -323,19 +330,39 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 		return parkingRates;
 	}
-	
+
+	public void updateParkingRates(List<ParkingRate> parkingRates) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			for (ParkingRate pr : parkingRates) {
+				ps = conn.prepareStatement(UPDATE_PARKING_RATE);
+				ps.setDouble(1, pr.getRate());
+				ps.setDouble(2, pr.getHours());
+				ps.executeUpdate();
+			}
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
 	public double getMaximumRate() {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		double maxRate = 0;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_MAXIMUM_RATE);
 			rs = ps.executeQuery();
-	
-			if (rs.next()){
+
+			if (rs.next()) {
 				maxRate = rs.getDouble("Rate");
 			}
 		} catch (SQLException sqe) {
@@ -346,7 +373,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		return maxRate;
 	}
 
-	//Methods for Accounts
+	// Methods for Accounts
 	private void createAccountTable() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -404,7 +431,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			closeResources(ps, rs);
 		}
 	}
-	
+
 	public boolean isAccountExist(String username) {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -426,18 +453,18 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			closeResources(ps, rs);
 		}
 	}
-	
+
 	public String getPassword(String username) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;	
+		ResultSet rs = null;
 		String password = null;
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_PASSWORD);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				password = rs.getString("password");
 			}
 		} catch (SQLException sqe) {
@@ -451,14 +478,14 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 	public String getSecurityQuestion(String username) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;	
+		ResultSet rs = null;
 		String securityQues = null;
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_SECURITY_QUESTION);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				securityQues = rs.getString("security_question");
 			}
 		} catch (SQLException sqe) {
@@ -472,14 +499,14 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 	public String getSecurityAnswer(String username) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;	
+		ResultSet rs = null;
 		String securityAns = null;
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_SECURITY_ANSWER);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				securityAns = rs.getString("security_answer");
 			}
 		} catch (SQLException sqe) {
@@ -494,7 +521,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_ADMIN_PASSWORD);
@@ -512,7 +539,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_ADMIN_LOGGED_IN);
@@ -529,7 +556,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_LOGGED_IN_ADMIN);
@@ -550,7 +577,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_ADMIN_LOGGED_OUT);
@@ -566,7 +593,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_DISABLE_ACCOUNT);
@@ -576,14 +603,14 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			throw new RuntimeException(sqe);
 		} finally {
 			closeResources(ps, rs);
-		}		
+		}
 	}
 
 	private void createAudit() {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(CREATE_AUDIT);
@@ -613,7 +640,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	//Methods for Tickets
+	// Methods for Tickets
 	private void createTickets() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -636,7 +663,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(INSERT_TICKET);
@@ -661,7 +688,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_COUNT_UNSUBMITTED_TICKET);
@@ -683,7 +710,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_TICKET_ISSUE_TIME);
@@ -708,7 +735,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_TICKET_PAID);
@@ -725,7 +752,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(UPDATE_TICKET_SUBMITTED);
@@ -738,7 +765,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	//Methods for Payments
+	// Methods for Payments
 	private void createPayments() {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -754,12 +781,12 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			closeResources(ps, rs);
 		}
 	}
-	
+
 	public void insertPayment(double amount, int ticketNumber) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(INSERT_PAYMENT);
@@ -777,7 +804,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(INSERT_PAYMENT_WITHOUT_TICKET);
@@ -794,7 +821,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-	
+
 		try {
 			conn = DatabaseAccess.getConnection();
 			ps = conn.prepareStatement(SELECT_PAYMENTS_ON_TICKET);
@@ -812,7 +839,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	//Methods for Payment Exceptions
+	// Methods for Payment Exceptions
 	private void createPaymentExceptions() {
 		Connection conn = null;
 		PreparedStatement ps = null;
