@@ -3,41 +3,47 @@ package cs414.fmaster.parking.ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingOperationsController;
+import cs414.fmaster.parking.controller.ParkingOperationsHandler;
+import cs414.fmaster.parking.controller.ParkingRate;
 
 /**
  * @author MasterF
  * 
  */
 public class MainUI extends JFrame {
-	MainController mainController;
-	EnterParkingUI enterParkingUI;
-	ExitParkingUI exitParkingUI;
-	ViewRatesUI viewRatesUI;
-	LoginUI loginUI;
-	JPanel mainPnl = new JPanel();
-	JPanel mainContentPnl = new JPanel();
-	JPanel messagePnl = new JPanel();
-	JLabel messageLbl = new JLabel("");
+	private MainController mainController;
+	private EnterParkingUI enterParkingUI;
+	private ExitParkingUI exitParkingUI;
+	private ViewRatesUI viewRatesUI;
+	private LoginUI loginUI;
+	public AdminUI adminUI;
+	public ConfigRatesUI configRatesUI;
+	public ConfigParkingSizeUI configParkingSizeUI;
+	public ReportsUI reportsUI;
+	public JPanel mainPnl = new JPanel();
+	public JPanel mainContentPnl = new JPanel();
+	private JLabel messageLbl = new JLabel("");
 
 	private static MainUI instance = null;
 
-	private MainUI() {
+	private MainUI(MainController mainController) {
+		this.mainController = mainController;
+		intitializeChildUI();
+		setupUI();
 	}
 
-	private static MainUI getInstance() {
+	public static MainUI getInstance(MainController mainController) {
 		if (instance == null) {
-			instance = new MainUI();
+			instance = new MainUI(mainController);
 		}
 		return instance;
-	}
-
-	private void intitilizeControllers() {
-		mainController = MainController.getInstance();
 	}
 
 	private void intitializeChildUI() {
@@ -45,6 +51,10 @@ public class MainUI extends JFrame {
 		exitParkingUI = ExitParkingUI.getInstance(this, mainController);
 		viewRatesUI = ViewRatesUI.getInstance(this, mainController);
 		loginUI = LoginUI.getInstance(this, mainController);
+		adminUI = AdminUI.getInstance(this, mainController);
+		configRatesUI = ConfigRatesUI.getInstance(this, mainController);
+		configParkingSizeUI = ConfigParkingSizeUI.getInstance(this, mainController);
+		reportsUI = ReportsUI.getInstance(this, mainController);
 	}
 
 	private void setupUI() {
@@ -53,17 +63,18 @@ public class MainUI extends JFrame {
 		exitParkingUI.setupUI();
 		viewRatesUI.setupUI();
 		loginUI.setupUI();
+		adminUI.setupUI();
+		configRatesUI.setupUI();
+		configParkingSizeUI.setupUI();
+		reportsUI.setupUI();
 	}
 
 	private void setupMainUI() {
 		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Main Panel
-		mainPnl.setLayout(new GridBagLayout());
-		addGridBagComponent(mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
-		addGridBagComponent(mainPnl, messagePnl, GridBagConstraints.BOTH, 0, 1);
+		add(mainPnl);
+		setVisible(true);
 
 		// Top Portion of Main Panel - Content
 		mainContentPnl.setLayout(new GridBagLayout());
@@ -101,12 +112,15 @@ public class MainUI extends JFrame {
 		topRightPnl.add(mainImageLbl);
 
 		// Bottom Portion of Main Panel - Messages and Parking Availability
+		JPanel messagePnl = new JPanel();
 		messagePnl.add(messageLbl);
 		displayWelcomeMessage();
 
-		add(mainPnl);
-		//pack();
-		setVisible(true);
+		// pack();
+		// Main Panel
+		mainPnl.setLayout(new GridBagLayout());
+		addGridBagComponent(mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
+		addGridBagComponent(mainPnl, messagePnl, GridBagConstraints.BOTH, 0, 1);
 	}
 
 	public void addGridBagComponent(JPanel parent, JComponent child, int gridBagFill, int gridx, int gridy) {
@@ -116,7 +130,7 @@ public class MainUI extends JFrame {
 		localgbc.gridy = gridy;
 		parent.add(child, localgbc);
 	}
-	
+
 	public void addGridBagComponent(JPanel parent, JComponent child, int gridBagFill, int gridx, int gridy, int gridWidth, int gridHeight) {
 		GridBagConstraints localgbc = new GridBagConstraints();
 		localgbc.fill = gridBagFill;
@@ -134,13 +148,25 @@ public class MainUI extends JFrame {
 	}
 
 	public void displayWelcomeMessage() {
-		int availableParking = mainController.parkingController.getCurrentAvailability();
-		int parkingSize = mainController.parkingController.getCurrentParkingSize();
+		int availableParking = mainController.parkingOpsHandler.getCurrentAvailability();
+		int parkingSize = mainController.parkingOpsHandler.getCurrentParkingSize();
 		displayMessage("Welcome to My Parking!! " + availableParking + " out of " + parkingSize + " parking spots available.");
 	}
 
 	public void displayMessage(String message) {
 		messageLbl.setText(message);
+	}
+
+	public void populateParkingRatesInTable(JTable parkingRatesTbl) {
+		DefaultTableModel model = (DefaultTableModel) parkingRatesTbl.getModel();
+		model.setRowCount(0);
+		model.addColumn("Hours");
+	    model.addColumn("Rate");
+	    List<ParkingRate> parkingRatesList = new ArrayList<ParkingRate>();
+		parkingRatesList = mainController.parkingOpsHandler.getParkingRates();
+		for (ParkingRate pr : parkingRatesList) {
+			model.addRow(new Object[] { pr.getHours(), pr.getRate() });
+		}
 	}
 
 	public class MainUIListener implements ActionListener {
@@ -150,33 +176,30 @@ public class MainUI extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("Enter Parking")) {
-				boolean isParkingAvailable = mainController.parkingController.isParkingAvailable();
+				boolean isParkingAvailable = mainController.parkingOpsHandler.isParkingAvailable();
 				if (isParkingAvailable) {
 					showHideContentPanel(enterParkingUI.mainContentPnl, mainContentPnl);
+					populateParkingRatesInTable(enterParkingUI.parkingRatesTbl);
 				} else {
 					displayMessage("Sorry. No parking spot available.");
 				}
 			}
 			if (e.getActionCommand().equals("Exit Parking")) {
-				showHideContentPanel(exitParkingUI.mainContentPnl, mainContentPnl);
+				boolean isParkingEmpty = mainController.parkingOpsHandler.isParkingEmpty();
+				if (isParkingEmpty) {
+					displayMessage("No cars present in parking.");
+				} else {
+					showHideContentPanel(exitParkingUI.mainContentPnl, mainContentPnl);
+					populateParkingRatesInTable(exitParkingUI.parkingRatesTbl);
+				}
 			}
 			if (e.getActionCommand().equals("View Parking Rates")) {
 				showHideContentPanel(viewRatesUI.mainContentPnl, mainContentPnl);
+				populateParkingRatesInTable(viewRatesUI.parkingRatesTbl);
 			}
 			if (e.getActionCommand().equals("Login")) {
 				showHideContentPanel(loginUI.mainContentPnl, mainContentPnl);
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				MainUI mainUI = MainUI.getInstance();
-				mainUI.intitilizeControllers();
-				mainUI.intitializeChildUI();
-				mainUI.setupUI();
-			}
-		});
 	}
 }
