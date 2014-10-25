@@ -19,17 +19,17 @@ import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.MainController;
 import cs414.fmaster.parking.controller.ParkingRate;
-import cs414.fmaster.parking.controller.ParkingOperationsController;
+import cs414.fmaster.parking.controller.ParkingOperationsHandler;
 
 /**
  * @author MasterF
  * 
  */
 public class ViewRatesUI {
-	MainUI mainUI;
-	MainController mainController;
+	private MainUI mainUI;
+	private MainController mainController;
 	JPanel mainContentPnl = new JPanel();
-	JButton backButton = new JButton("Go Back");
+	JTable parkingRatesTbl = new JTable();
 
 	private static ViewRatesUI instance = null;
 
@@ -48,29 +48,28 @@ public class ViewRatesUI {
 	public void setupUI() {
 		mainContentPnl.setLayout(new GridBagLayout());
 
+		// Parking Rates Panel
+		JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");
-		mainUI.addGridBagComponent(mainContentPnl, parkingRateLbl, GridBagConstraints.BOTH, 0, 0);
-
-		List<ParkingRate> parkingRates = new ArrayList<ParkingRate>();
-		parkingRates = mainController.parkingController.getParkingRates();
-		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "Hours", "Rate" });
-		for (ParkingRate pr : parkingRates) {
-			model.addRow(new Object[] { pr.getHours(), pr.getRate() });
-		}
-		JTable parkingRatesTbl = new JTable();
-		parkingRatesTbl.setModel(model);
+		DefaultTableModel parkingRatesModel = new DefaultTableModel();
+		parkingRatesTbl.setModel(parkingRatesModel);
+		mainUI.populateParkingRatesInTable(parkingRatesTbl);
 		parkingRatesTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		parkingRatesTbl.setFillsViewportHeight(true);
+		parkingRatesTbl.setEnabled(false);
 
-		JPanel parkingRatesPanel = new JPanel();
-		parkingRatesPanel.add(parkingRatesTbl);
-		mainUI.addGridBagComponent(mainContentPnl, parkingRatesPanel, GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRateLbl, GridBagConstraints.BOTH, 0, 0);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 1);
 
-		backButton.addActionListener(new ViewRatesListener());
+		// Back button
+		JButton backBtn = new JButton("Go Back");
+		backBtn.addActionListener(new ViewRatesListener());
 
-		mainUI.addGridBagComponent(mainContentPnl, backButton, GridBagConstraints.NONE, 0, 3);
+		// Main Content Panel
+		mainUI.addGridBagComponent(mainContentPnl, parkingRatesPnl, GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(mainContentPnl, backBtn, GridBagConstraints.NONE, 0, 3);
+
 		mainContentPnl.setVisible(false);
-
 		mainUI.addGridBagComponent(mainUI.mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 	}
 
