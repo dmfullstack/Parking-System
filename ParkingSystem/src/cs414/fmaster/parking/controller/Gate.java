@@ -8,8 +8,8 @@ package cs414.fmaster.parking.controller;
  * 
  */
 public class Gate {
-	GateType type;
-	Boolean isOpen;
+	private GateType type;
+	private Boolean isOpen;
 
 	public Gate(GateType type) {
 		super();
@@ -17,11 +17,11 @@ public class Gate {
 		this.isOpen = false;
 	}
 
-	void openGate() {
+	public void openGate() {
 		this.isOpen = true;
 	}
 
-	void closeGate() {
+	public void closeGate() {
 		this.isOpen = false;
 	}
 }
