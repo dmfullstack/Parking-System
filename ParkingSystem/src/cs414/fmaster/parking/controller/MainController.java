@@ -3,29 +3,54 @@
  */
 package cs414.fmaster.parking.controller;
 
+import javax.swing.SwingUtilities;
+
 import cs414.fmaster.parking.database.ParkingDatabaseAccess;
+import cs414.fmaster.parking.ui.MainUI;
 
 /**
  * @author MasterF
  * 
  */
 public class MainController {
-	ParkingDatabaseAccess db;
-	public ParkingOperationsController parkingController;
-	public PaymentController paymentController;
+	private ParkingDatabaseAccess db;
+	private MainUI ui;
+	public ParkingOperationsHandler parkingOpsHandler;
+	public PaymentHandler paymentHandler;
+	public AdminOperationsHandler adminOpsHandler;
 	private static MainController instance = null;
 
 	private MainController() {
-		this.db = ParkingDatabaseAccess.getInstance();
-		this.parkingController = ParkingOperationsController.getInstance(db);
-		this.paymentController = PaymentController.getInstance(db);
-	}
 	
-	public static MainController getInstance() {
+	}
+
+	private static MainController getInstance() {
 		if (instance == null) {
 			instance = new MainController();
 		}
 		return instance;
 	}
 
+	private void initializeHandlers() {
+		parkingOpsHandler = ParkingOperationsHandler.getInstance(db);
+		paymentHandler = PaymentHandler.getInstance(db);
+		adminOpsHandler = AdminOperationsHandler.getInstance(db);
+	}
+	private void initializeUI() {
+		ui = MainUI.getInstance(this);
+	}
+	private void initializeDB() {
+		db = ParkingDatabaseAccess.getInstance();
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainController mainController = MainController.getInstance();
+				mainController.initializeDB();
+				mainController.initializeHandlers();
+				mainController.initializeUI();
+			}
+		});
+	}
 }
