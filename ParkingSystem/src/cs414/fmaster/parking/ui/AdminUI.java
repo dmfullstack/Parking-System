@@ -158,6 +158,7 @@ public class AdminUI {
 			if (e.getActionCommand().equals("Add Account")) {
 				adminOptionsPnl.setVisible(false);
 				addAccountPnl.setVisible(true);
+				backBtn.setVisible(true);
 			}
 			if (e.getActionCommand().equals("Create Account")) {
 				String addUsername = addUsernameTxt.getText();
@@ -181,6 +182,7 @@ public class AdminUI {
 			if (e.getActionCommand().equals("Disable Account")) {
 				adminOptionsPnl.setVisible(false);
 				disableAccountPnl.setVisible(true);
+				backBtn.setVisible(true);
 			}
 			if (e.getActionCommand().equals("Confirm Disable Account")) {
 				String disableUsername = disableUsernameTxt.getText();
@@ -204,6 +206,7 @@ public class AdminUI {
 			if (e.getActionCommand().equals("Change Password")) {
 				adminOptionsPnl.setVisible(false);
 				changePwdPnl.setVisible(true);
+				backBtn.setVisible(true);
 			}
 			if (e.getActionCommand().equals("Confirm Change Password")) {
 				String oldPwd = oldPwdTxt.getText();

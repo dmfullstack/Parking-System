@@ -28,8 +28,6 @@ public class ConfigParkingSizeUI {
 	JLabel currentSizeLbl = new JLabel();
 	JLabel currentOccupancyLbl = new JLabel();
 	private JTextField newSizeTxt = new JTextField(5);
-	private JButton backBtn = new JButton("Go Back");
-	private JButton logoutBtn = new JButton("Logout");
 
 	private static ConfigParkingSizeUI instance = null;
 
@@ -64,6 +62,8 @@ public class ConfigParkingSizeUI {
 
 		// Main Content Panel
 		mainUI.addGridBagComponent(mainContentPnl, configSizePanel, GridBagConstraints.NONE, 0, 0, 2, 1);
+		JButton backBtn = new JButton("Go Back");
+		JButton logoutBtn = new JButton("Logout");
 		mainUI.addGridBagComponent(mainContentPnl, backBtn, GridBagConstraints.BOTH, 0, 1);
 		mainUI.addGridBagComponent(mainContentPnl, logoutBtn, GridBagConstraints.BOTH, 1, 1);
 		backBtn.addActionListener(new ConfigParkingSizeUIListener());
@@ -81,7 +81,7 @@ public class ConfigParkingSizeUI {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals("Update Size")) {
+			if (e.getActionCommand().equals("Update Parking Size")) {
 				String newSize = newSizeTxt.getText();
 				if (newSize.matches("[0-9]+")) {
 					if (newSize.matches("[0]+")) {

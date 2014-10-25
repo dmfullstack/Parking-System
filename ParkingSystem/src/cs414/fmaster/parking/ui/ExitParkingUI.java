@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,8 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingRate;
-import cs414.fmaster.parking.controller.ParkingOperationsHandler;
 
 /**
  * @author MasterF
@@ -75,7 +71,7 @@ public class ExitParkingUI {
 
 		// Parking Rates Panel
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");
-		DefaultTableModel parkingRatesModel = new DefaultTableModel();
+		DefaultTableModel parkingRatesModel = new DefaultTableModel(new Object[][] {}, new String[] {"Hours", "Rate"});		
 		parkingRatesTbl.setModel(parkingRatesModel);
 		mainUI.populateParkingRatesInTable(parkingRatesTbl);
 		parkingRatesTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -83,7 +79,8 @@ public class ExitParkingUI {
 		parkingRatesTbl.setEnabled(false);
 		
 		mainUI.addGridBagComponent(parkingRatesPnl, parkingRateLbl, GridBagConstraints.BOTH, 0, 0);
-		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl.getTableHeader(), GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 2);
 				
 		// Enter Ticket Panel
 		ticketPnl.setLayout(new GridBagLayout());

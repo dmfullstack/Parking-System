@@ -7,8 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,8 +16,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingRate;
-import cs414.fmaster.parking.controller.ParkingOperationsHandler;
 
 /**
  * @author MasterF
@@ -30,7 +26,7 @@ public class EnterParkingUI {
 	private MainController mainController;
 	public JPanel mainContentPnl = new JPanel();
 	JTable parkingRatesTbl = new JTable();
-
+	
 	private static EnterParkingUI instance = null;
 
 	private EnterParkingUI(MainUI mainUI, MainController mainController) {
@@ -51,7 +47,7 @@ public class EnterParkingUI {
 		// Parking Rates Panel
 		JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");
-		DefaultTableModel parkingRatesModel = new DefaultTableModel();
+		DefaultTableModel parkingRatesModel = new DefaultTableModel(new Object[][] {}, new String[] {"Hours", "Rate"});
 		parkingRatesTbl.setModel(parkingRatesModel);
 		mainUI.populateParkingRatesInTable(parkingRatesTbl);
 		parkingRatesTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -59,7 +55,8 @@ public class EnterParkingUI {
 		parkingRatesTbl.setEnabled(false);
 
 		mainUI.addGridBagComponent(parkingRatesPnl, parkingRateLbl, GridBagConstraints.BOTH, 0, 0);
-		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl.getTableHeader(), GridBagConstraints.BOTH, 0, 1);
+		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 2);
 
 		// Get Ticket and Back buttons
 		JButton getTicketBtn = new JButton("Get Ticket");

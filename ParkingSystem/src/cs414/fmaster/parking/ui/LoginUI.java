@@ -7,20 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingRate;
-import cs414.fmaster.parking.controller.ParkingOperationsHandler;
 
 /**
  * @author MasterF

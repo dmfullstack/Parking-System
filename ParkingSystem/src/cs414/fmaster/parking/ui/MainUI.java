@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingOperationsHandler;
 import cs414.fmaster.parking.controller.ParkingRate;
 
 /**
@@ -160,12 +159,10 @@ public class MainUI extends JFrame {
 	public void populateParkingRatesInTable(JTable parkingRatesTbl) {
 		DefaultTableModel model = (DefaultTableModel) parkingRatesTbl.getModel();
 		model.setRowCount(0);
-		model.addColumn("Hours");
-	    model.addColumn("Rate");
-	    List<ParkingRate> parkingRatesList = new ArrayList<ParkingRate>();
+		List<ParkingRate> parkingRatesList = new ArrayList<ParkingRate>();
 		parkingRatesList = mainController.parkingOpsHandler.getParkingRates();
 		for (ParkingRate pr : parkingRatesList) {
-			model.addRow(new Object[] { pr.getHours(), pr.getRate() });
+			model.addRow(new Object[] { String.valueOf(pr.getHours()), String.valueOf(pr.getRate()) });
 		}
 	}
 
