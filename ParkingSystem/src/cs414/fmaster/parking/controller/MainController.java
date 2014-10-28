@@ -18,6 +18,8 @@ public class MainController {
 	public ParkingOperationsHandler parkingOpsHandler;
 	public PaymentHandler paymentHandler;
 	public AdminOperationsHandler adminOpsHandler;
+	public ReportsHandler reportsHandler;
+	
 	private static MainController instance = null;
 
 	private MainController() {
@@ -35,6 +37,7 @@ public class MainController {
 		parkingOpsHandler = ParkingOperationsHandler.getInstance(db);
 		paymentHandler = PaymentHandler.getInstance(db);
 		adminOpsHandler = AdminOperationsHandler.getInstance(db);
+		reportsHandler = ReportsHandler.getInstance(db);
 	}
 	private void initializeUI() {
 		ui = MainUI.getInstance(this);

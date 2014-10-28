@@ -8,8 +8,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import cs414.fmaster.parking.controller.Hour;
 import cs414.fmaster.parking.controller.ParkingRate;
 
 /**
@@ -32,11 +34,17 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 	private static final String SELECT_PARKING_RATES = "SELECT time_interval AS Hours, rate as Rate FROM parking_rates";
 	private static final String SELECT_MAXIMUM_RATE = "SELECT rate as Rate FROM parking_rates WHERE time_interval = 24";
 	private static final String SELECT_CURRENT_PARKING_SIZE = "SELECT size FROM parking_size_history WHERE end_time IS NULL";
+	private static final String SELECT_PARKING_SIZE_IN_HOUR = "SELECT size FROM parking_size_history WHERE start_time < ? AND (end_time > ? OR end_time IS NULL)";
 	private static final String SELECT_CURRENT_PARKING_AVAILABILITY = "SELECT availability FROM parking_availability_history WHERE end_time IS NULL";
+	private static final String SELECT_PARKING_AVAILABILITY_IN_HOUR = "SELECT availability FROM parking_availability_history WHERE start_time < ? AND (end_time > ? OR end_time IS NULL)";
 	private static final String SELECT_COUNT_UNSUBMITTED_TICKET = "SELECT COUNT(*) c FROM tickets WHERE ticket_no = ? AND is_submitted = false";
 	private static final String SELECT_TICKET_ISSUE_TIME = "SELECT issue_time FROM tickets WHERE ticket_no = ?";
 	private static final String FIND_LAST_TICKET = "SELECT LAST_INSERT_ID() AS ticket_no";
+	private static final String SELECT_TICKET_COUNT_IN_DAY = "SELECT COUNT(*) AS ticket_count FROM tickets WHERE issue_time >= ? AND issue_time < ?";
 	private static final String SELECT_PAYMENTS_ON_TICKET = "SELECT SUM(amount) AS payment FROM payments WHERE ticket_no = ?";
+	private static final String SELECT_PAYMENT_IN_MONTH = "SELECT SUM(amount) AS payment FROM payments WHERE paid_on >= ? AND paid_on < ?";
+	private static final String SELECT_PAYMENT_IN_DAY = "SELECT SUM(amount) AS payment FROM payments WHERE paid_on >= ? AND paid_on < ?";
+	private static final String SELECT_PAYMENT_IN_HOUR = "SELECT SUM(amount) AS payment FROM payments WHERE paid_on >= ? AND paid_on < ?";
 	private static final String SELECT_COUNT_VALID_USERNAME = "SELECT COUNT(*) c FROM accounts WHERE username = ? AND is_active = true";
 	private static final String SELECT_COUNT_USERNAME = "SELECT COUNT(*) c FROM accounts WHERE username = ?";
 	private static final String SELECT_PASSWORD = "SELECT password FROM accounts WHERE username = ?";
@@ -181,6 +189,37 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
+	public void setParkingSizeInHour(Hour selectedHour) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_PARKING_SIZE_IN_HOUR);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedHour.getYear());
+			aCal.set(Calendar.MONTH, selectedHour.getMonth() - 1);
+			aCal.set(Calendar.DATE, selectedHour.getDay());
+			aCal.set(Calendar.HOUR_OF_DAY, selectedHour.getHour());
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, atimestamp);
+			rs = ps.executeQuery();
+			int size = 0;
+			if (rs.next() == true) {
+				size = rs.getInt("size");
+			}
+			selectedHour.setParkingSize(size);
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
 	// Methods for Parking Availability
 	private void createParkingAvailability() {
 		Connection conn = null;
@@ -247,7 +286,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		updateCurrentParkingAvailabilityEndTime();
 		insertParkingAvailability(avail - 1);
 	}
-	
+
 	public void updateParkingAvailability(int availability) {
 		updateCurrentParkingAvailabilityEndTime();
 		insertParkingAvailability(availability);
@@ -264,6 +303,37 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			Timestamp now = new Timestamp(new Date().getTime());
 			ps.setTimestamp(1, now);
 			ps.executeUpdate();
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
+	public void setParkingAvailabilityInHour(Hour selectedHour) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_PARKING_AVAILABILITY_IN_HOUR);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedHour.getYear());
+			aCal.set(Calendar.MONTH, selectedHour.getMonth() - 1);
+			aCal.set(Calendar.DATE, selectedHour.getDay());
+			aCal.set(Calendar.HOUR_OF_DAY, selectedHour.getHour());
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, atimestamp);
+			rs = ps.executeQuery();
+			int availability = 0;
+			if (rs.next() == true) {
+				availability = rs.getInt("availability");
+			}
+			selectedHour.setAvailability(availability);
 		} catch (SQLException sqe) {
 			throw new RuntimeException(sqe);
 		} finally {
@@ -765,6 +835,46 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
+	public void setOccupancyForDayInHour(Hour selectedDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_TICKET_COUNT_IN_DAY);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedDay.getYear());
+			aCal.set(Calendar.MONTH, selectedDay.getMonth() - 1);
+			aCal.set(Calendar.DATE, selectedDay.getDay());
+			aCal.set(Calendar.HOUR_OF_DAY, 0);
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			Calendar bCal = new GregorianCalendar();
+			bCal.set(Calendar.YEAR, selectedDay.getYear());
+			bCal.set(Calendar.MONTH, selectedDay.getMonth() - 1);
+			bCal.set(Calendar.DATE, selectedDay.getDay() + 1);
+			bCal.set(Calendar.HOUR_OF_DAY, 0);
+			bCal.set(Calendar.MINUTE, 0);
+			bCal.set(Calendar.SECOND, 0);
+			Timestamp btimestamp = new Timestamp(bCal.getTimeInMillis());
+
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, btimestamp);
+			rs = ps.executeQuery();
+			int ticketCount = 0;
+			if (rs.next() == true) {
+				ticketCount = rs.getInt("ticket_count");
+			}
+			selectedDay.setTicketCount(ticketCount);
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+	
 	// Methods for Payments
 	private void createPayments() {
 		Connection conn = null;
@@ -839,6 +949,126 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
+	public void setPaymentForHourInHour(Hour selectedHour) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_PAYMENT_IN_HOUR);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedHour.getYear());
+			aCal.set(Calendar.MONTH, selectedHour.getMonth() - 1);
+			aCal.set(Calendar.DATE, selectedHour.getDay());
+			aCal.set(Calendar.HOUR_OF_DAY, selectedHour.getHour() - 1);
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			Calendar bCal = new GregorianCalendar();
+			bCal.set(Calendar.YEAR, selectedHour.getYear());
+			bCal.set(Calendar.MONTH, selectedHour.getMonth() - 1);
+			bCal.set(Calendar.DATE, selectedHour.getDay());
+			bCal.set(Calendar.HOUR_OF_DAY, selectedHour.getHour());
+			bCal.set(Calendar.MINUTE, 0);
+			bCal.set(Calendar.SECOND, 0);
+			Timestamp btimestamp = new Timestamp(bCal.getTimeInMillis());
+
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, btimestamp);
+			rs = ps.executeQuery();
+			double payment = 0;
+			if (rs.next() == true) {
+				payment = rs.getDouble("payment");
+			}
+			selectedHour.setPayment(payment);
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
+	public void setPaymentForDayInHour(Hour selectedDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_PAYMENT_IN_DAY);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedDay.getYear());
+			aCal.set(Calendar.MONTH, selectedDay.getMonth() - 1);
+			aCal.set(Calendar.DATE, selectedDay.getDay());
+			aCal.set(Calendar.HOUR_OF_DAY, 0);
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			Calendar bCal = new GregorianCalendar();
+			bCal.set(Calendar.YEAR, selectedDay.getYear());
+			bCal.set(Calendar.MONTH, selectedDay.getMonth() - 1);
+			bCal.set(Calendar.DATE, selectedDay.getDay() + 1);
+			bCal.set(Calendar.HOUR_OF_DAY, 0);
+			bCal.set(Calendar.MINUTE, 0);
+			bCal.set(Calendar.SECOND, 0);
+			Timestamp btimestamp = new Timestamp(bCal.getTimeInMillis());
+
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, btimestamp);
+			rs = ps.executeQuery();
+			double payment = 0;
+			if (rs.next() == true) {
+				payment = rs.getDouble("payment");
+			}
+			selectedDay.setPayment(payment);
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
+	public void setPaymentForMonthInHour(Hour selectedMonth) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DatabaseAccess.getConnection();
+			ps = conn.prepareStatement(SELECT_PAYMENT_IN_MONTH);
+			Calendar aCal = new GregorianCalendar();
+			aCal.set(Calendar.YEAR, selectedMonth.getYear());
+			aCal.set(Calendar.MONTH, selectedMonth.getMonth() - 1);
+			aCal.set(Calendar.DATE, 1);
+			aCal.set(Calendar.HOUR_OF_DAY, 0);
+			aCal.set(Calendar.MINUTE, 0);
+			aCal.set(Calendar.SECOND, 0);
+			Timestamp atimestamp = new Timestamp(aCal.getTimeInMillis());
+			Calendar bCal = new GregorianCalendar();
+			bCal.set(Calendar.YEAR, selectedMonth.getYear());
+			bCal.set(Calendar.MONTH, selectedMonth.getMonth());
+			bCal.set(Calendar.DATE, 1);
+			bCal.set(Calendar.HOUR_OF_DAY, 0);
+			bCal.set(Calendar.MINUTE, 0);
+			bCal.set(Calendar.SECOND, 0);
+			Timestamp btimestamp = new Timestamp(bCal.getTimeInMillis());
+
+			ps.setTimestamp(1, atimestamp);
+			ps.setTimestamp(2, btimestamp);
+			rs = ps.executeQuery();
+			double payment = 0;
+			if (rs.next() == true) {
+				payment = rs.getDouble("payment");
+			}
+			selectedMonth.setPayment(payment);
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} finally {
+			closeResources(ps, rs);
+		}
+	}
+
 	// Methods for Payment Exceptions
 	private void createPaymentExceptions() {
 		Connection conn = null;
@@ -874,4 +1104,5 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			closeResources(ps, rs);
 		}
 	}
+
 }

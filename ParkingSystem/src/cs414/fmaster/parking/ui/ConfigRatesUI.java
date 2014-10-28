@@ -139,7 +139,7 @@ public class ConfigRatesUI {
 					for (int i = 0; i < parkingRatesTbl.getRowCount(); i++) {
 						String noOfHoursStr = (String) parkingRatesTbl.getValueAt(i, 0);
 						String newRateStr = (String) parkingRatesTbl.getValueAt(i, 1);
-						if (newRateStr.matches("[0-9]{1,2}\\.?[0-9]{0,2}")) {
+						if (newRateStr.matches("[0-9]{1,2}\\.[0-9]{0,2}")) {
 							double noOfHours = Double.parseDouble(noOfHoursStr);
 							double newRate = Double.parseDouble(newRateStr);
 							ParkingRate pr = new ParkingRate();
@@ -148,7 +148,7 @@ public class ConfigRatesUI {
 							parkingRates.add(pr);
 						} else {
 							validRates = false;
-							JOptionPane.showMessageDialog(mainUI, "Enter rates in decimal in format xx.xx", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(mainUI, "Enter rates in decimal format between 0 and 99.99", "Error", JOptionPane.ERROR_MESSAGE);
 							break;
 						}
 					}

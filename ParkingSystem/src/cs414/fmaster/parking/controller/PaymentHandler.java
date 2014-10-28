@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -20,7 +21,7 @@ public class PaymentHandler {
 	private ParkingDatabaseAccess db;
 	private static PaymentHandler instance = null;
 	private static double totalAmountPaidWithoutTicket = 0;
-	
+
 	private PaymentHandler(ParkingDatabaseAccess db) {
 		this.db = db;
 	}
@@ -98,20 +99,54 @@ public class PaymentHandler {
 	}
 
 	public boolean validateCreditPayment(String name, String address, String creditCard, String securityCode, String expDate) {
-		StringTokenizer st = new StringTokenizer(expDate, "-");
+		boolean isValidMonthYearStrInFuture = isValidMonthYearInFuture(expDate);
+		return isValidMonthYearStrInFuture;
+	}
+
+	public boolean isValidMonthYearInPast(String monthYear) {
+		StringTokenizer st = new StringTokenizer(monthYear, "-");
 		int month = Integer.parseInt(st.nextToken());
-		if(month > 12) {
+		if (month > 12 || month < 1) {
 			return false;
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
-		Date expDt = null;
-		try {
-			expDt = sdf.parse(expDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		int year = Integer.parseInt(st.nextToken());
+		Calendar enteredMonthYear = new GregorianCalendar();
+		enteredMonthYear.set(Calendar.YEAR, year);
+		enteredMonthYear.set(Calendar.MONTH, month - 1);
+		enteredMonthYear.set(Calendar.DATE, 1);
+		enteredMonthYear.set(Calendar.HOUR_OF_DAY, 0);
+		enteredMonthYear.set(Calendar.MINUTE, 0);
+		enteredMonthYear.set(Calendar.SECOND, 0);
+
+		Calendar thisMonth = new GregorianCalendar();
+		thisMonth.set(Calendar.DATE, 1);
+		thisMonth.set(Calendar.HOUR_OF_DAY, 0);
+		thisMonth.set(Calendar.MINUTE, 0);
+		thisMonth.set(Calendar.SECOND, 0);
+		return enteredMonthYear.before(thisMonth);
+	}
+
+	public boolean isValidMonthYearInFuture(String monthYear) {
+		StringTokenizer st = new StringTokenizer(monthYear, "-");
+		int month = Integer.parseInt(st.nextToken());
+		if (month > 12 || month < 1) {
+			return false;
 		}
-		Date now = new Date();
-		return expDt.after(now);
+		int year = Integer.parseInt(st.nextToken());
+		Calendar enterMonthYear = new GregorianCalendar();
+		enterMonthYear.set(Calendar.YEAR, year);
+		enterMonthYear.set(Calendar.MONTH, month - 1);
+		enterMonthYear.set(Calendar.DATE, 1);
+		enterMonthYear.set(Calendar.HOUR_OF_DAY, 0);
+		enterMonthYear.set(Calendar.MINUTE, 0);
+		enterMonthYear.set(Calendar.SECOND, 0);
+
+		Calendar thisMonth = new GregorianCalendar();
+		thisMonth.set(Calendar.DATE, 1);
+		thisMonth.set(Calendar.HOUR_OF_DAY, 0);
+		thisMonth.set(Calendar.MINUTE, 0);
+		thisMonth.set(Calendar.SECOND, 0);
+		return enterMonthYear.after(thisMonth);
 	}
 
 	public double getMaximumPayment() {
@@ -126,5 +161,60 @@ public class PaymentHandler {
 	public void enterPaymentException(String name, String license, double amountDue) {
 		db.insertPaymentException(name, license, amountDue);
 		db.increaseParkingAvailability();
+	}
+
+	public boolean isValidDayMonthYearInPast(String dayMonthYearStr) {
+		StringTokenizer st = new StringTokenizer(dayMonthYearStr, "-");
+		int month = Integer.parseInt(st.nextToken());
+		if (month > 12 || month < 1) {
+			return false;
+		}
+		
+		int day = Integer.parseInt(st.nextToken());
+		if (day > 31 || day < 1) {
+			return false;
+		}
+		
+		int year = Integer.parseInt(st.nextToken());
+		
+		Calendar daysInMonthCal = new GregorianCalendar(year, month - 1, 1);
+		int maxDaysInMonth = daysInMonthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		if (day > maxDaysInMonth) {
+			return false;
+		}
+		
+		Calendar enteredDayMonthYear = new GregorianCalendar();
+		enteredDayMonthYear.set(Calendar.YEAR, year);
+		enteredDayMonthYear.set(Calendar.MONTH, month - 1);
+		enteredDayMonthYear.set(Calendar.DATE, day);
+		enteredDayMonthYear.set(Calendar.HOUR_OF_DAY, 0);
+		enteredDayMonthYear.set(Calendar.MINUTE, 0);
+		enteredDayMonthYear.set(Calendar.SECOND, 0);
+
+		Calendar today = new GregorianCalendar();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		return enteredDayMonthYear.before(today);
+	}
+
+	public boolean isValidYearInPast(String yearStr) {
+		int year = Integer.parseInt(yearStr);
+		
+		Calendar enteredYear = new GregorianCalendar();
+		enteredYear.set(Calendar.YEAR, year);
+		enteredYear.set(Calendar.MONTH, 0);
+		enteredYear.set(Calendar.DATE, 1);
+		enteredYear.set(Calendar.HOUR_OF_DAY, 0);
+		enteredYear.set(Calendar.MINUTE, 0);
+		enteredYear.set(Calendar.SECOND, 0);
+
+		Calendar thisYear = new GregorianCalendar();
+		thisYear.set(Calendar.MONTH, 0);
+		thisYear.set(Calendar.DATE, 1);
+		thisYear.set(Calendar.HOUR_OF_DAY, 0);
+		thisYear.set(Calendar.MINUTE, 0);
+		thisYear.set(Calendar.SECOND, 0);
+		return enteredYear.before(thisYear);
 	}
 }

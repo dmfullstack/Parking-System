@@ -62,7 +62,7 @@ public class AdminUI {
 		configRatesBtn.addActionListener(new AdminUIListener());
 		JButton configSizeBtn = new JButton("Configure Parking Size");
 		configSizeBtn.addActionListener(new AdminUIListener());
-		JButton viewReportsBtn = new JButton("View Reports");
+		JButton viewReportsBtn = new JButton("Generate Reports");
 		viewReportsBtn.addActionListener(new AdminUIListener());
 		JButton addAccountBtn = new JButton("Add Account");
 		addAccountBtn.addActionListener(new AdminUIListener());
@@ -151,7 +151,7 @@ public class AdminUI {
 				mainUI.configParkingSizeUI.currentSizeLbl.setText("Current Parking Size: " + mainController.parkingOpsHandler.getCurrentParkingSize());
 				mainUI.configParkingSizeUI.currentOccupancyLbl.setText("Current Occupied Slots: " + mainController.parkingOpsHandler.getCurrentParkingOccupancy());
 			}
-			if (e.getActionCommand().equals("View Reports")) {
+			if (e.getActionCommand().equals("Generate Reports")) {
 				resetUI();
 				mainUI.showHideContentPanel(mainUI.reportsUI.mainContentPnl, mainContentPnl);
 			}
