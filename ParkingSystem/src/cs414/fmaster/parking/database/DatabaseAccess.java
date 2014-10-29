@@ -15,12 +15,12 @@ import java.sql.Statement;
 public class DatabaseAccess {
 	private static Connection connection;
 
-	private final static String DRIVER   = "com.mysql.jdbc.Driver";
-	private final static String URL      = "jdbc:mysql://localhost/parking_system";
+	private final static String DRIVER = "com.mysql.jdbc.Driver";
+	private final static String URL = "jdbc:mysql://localhost/parking_system";
 	private final static String CONFIGPROP1 = "?zeroDateTimeBehavior=convertToNull";
-	private final static String USER     = "masterf";
+	private final static String USER = "masterf";
 	private final static String PASSWORD = "cs414";
-	
+
 	protected DatabaseAccess() {
 		try {
 			Class.forName(DRIVER);
@@ -30,10 +30,10 @@ public class DatabaseAccess {
 	}
 
 	protected static Connection getConnection() throws SQLException {
-		Connection connection = DriverManager.getConnection(URL+CONFIGPROP1, USER, PASSWORD);
+		Connection connection = DriverManager.getConnection(URL + CONFIGPROP1, USER, PASSWORD);
 		return connection;
 	}
-	
+
 	protected void closeResources(Statement s, ResultSet r) {
 		try {
 			if (s != null)
@@ -48,7 +48,16 @@ public class DatabaseAccess {
 		}
 		closeConnection();
 	}
-	
+
+	protected void closeResources(Statement s) {
+		try {
+			if (s != null)
+				s.close();
+		} catch (SQLException e) {
+		}
+		closeConnection();
+	}
+
 	protected static void closeConnection() {
 		if (connection != null) {
 			try {

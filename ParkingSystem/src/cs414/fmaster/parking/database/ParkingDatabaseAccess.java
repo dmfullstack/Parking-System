@@ -1,9 +1,14 @@
 package cs414.fmaster.parking.database;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,12 +93,12 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	// Method to initialize database tables
 	private void initializeParkingDatabase() {
-		//int initialSize = 5;
+		// int initialSize = 5;
 		createParkingSize();
-		//insertParkingSize(initialSize);
+		// insertParkingSize(initialSize);
 
 		createParkingAvailability();
-		//insertParkingAvailability(initialSize);
+		// insertParkingAvailability(initialSize);
 
 		createParkingRates();
 		insertParkingRate(0.5, 20.5);
@@ -874,7 +879,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			closeResources(ps, rs);
 		}
 	}
-	
+
 	// Methods for Payments
 	private void createPayments() {
 		Connection conn = null;
@@ -1102,6 +1107,41 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			throw new RuntimeException(sqe);
 		} finally {
 			closeResources(ps, rs);
+		}
+	}
+
+	public void runScript(String scriptFilePath) {
+		Connection conn = null;
+		Statement stmt = null;
+		String str = new String();
+		StringBuffer sb = new StringBuffer();
+		try {
+			File f = new File(scriptFilePath);
+			FileReader fr = new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			while ((str = br.readLine()) != null) {
+				sb.append(str);
+			}
+			br.close();
+
+			String[] instr = sb.toString().split(";");
+
+			conn = DatabaseAccess.getConnection();
+			stmt = conn.createStatement();
+			for (int i = 0; i < instr.length; i++) {
+				if (!instr[i].trim().equals("")) {
+					stmt.executeUpdate(instr[i]);
+					//System.out.println(">>" + instr[i]);
+				}
+			}
+
+		} catch (SQLException sqe) {
+			throw new RuntimeException(sqe);
+		} catch (IOException ioe) {
+			throw new RuntimeException(ioe);
+		}
+		finally {
+			closeResources(stmt);
 		}
 	}
 

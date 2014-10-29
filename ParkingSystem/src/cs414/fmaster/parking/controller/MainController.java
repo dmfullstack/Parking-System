@@ -35,6 +35,7 @@ public class MainController {
 
 	private void initializeDB() {
 		db = ParkingDatabaseAccess.getInstance();
+		db.runScript("src/cs414/fmaster/parking/database/populateDBScript.sql");
 	}
 
 	private void initializeHandlers() {
