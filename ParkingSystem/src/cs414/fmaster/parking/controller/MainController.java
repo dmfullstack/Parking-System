@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cs414.fmaster.parking.controller;
 
 import javax.swing.SwingUtilities;
@@ -13,6 +10,7 @@ import cs414.fmaster.parking.ui.MainUI;
  * 
  */
 public class MainController {
+	
 	private ParkingDatabaseAccess db;
 	private MainUI ui;
 	public ParkingOperationsHandler parkingOpsHandler;

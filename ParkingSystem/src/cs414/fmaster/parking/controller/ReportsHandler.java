@@ -17,6 +17,7 @@ import cs414.fmaster.parking.database.ParkingDatabaseAccess;
  * 
  */
 public class ReportsHandler {
+	
 	private ParkingDatabaseAccess db;
 	private static ReportsHandler instance = null;
 
@@ -30,8 +31,6 @@ public class ReportsHandler {
 		}
 		return instance;
 	}
-
-	// HAS SYSOUTS
 
 	public ParkingTime getMostUsedHourInLastMonth() {
 		ParkingTime lastMonth = getLastMonth();
@@ -97,6 +96,7 @@ public class ReportsHandler {
 		return lastMonth;
 	}
 
+	
 	private List<ParkingTime> getHoursInDay(ParkingTime dayMonthYear) {
 		List<ParkingTime> hoursInDay = new ArrayList<ParkingTime>();
 		int day = dayMonthYear.getDay();

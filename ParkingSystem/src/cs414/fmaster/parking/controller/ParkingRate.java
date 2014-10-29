@@ -8,9 +8,9 @@ package cs414.fmaster.parking.controller;
  *
  */
 public class ParkingRate {
-	double hours;
-	double rate;
-	
+	private double hours;
+	private double rate;
+
 	public double getHours() {
 		return hours;
 	}

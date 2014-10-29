@@ -16,10 +16,13 @@ public class DatabaseAccess {
 	private static Connection connection;
 
 	private final static String DRIVER = "com.mysql.jdbc.Driver";
-	private final static String URL = "jdbc:mysql://localhost/parking_system";
 	private final static String CONFIGPROP1 = "?zeroDateTimeBehavior=convertToNull";
+	private final static String URL = "jdbc:mysql://localhost/parking_system";
 	private final static String USER = "masterf";
 	private final static String PASSWORD = "cs414";
+	/*private final static String URL = "jdbc:mysql://faure/master";
+	private final static String USER = "master";
+	private final static String PASSWORD = "829987005";*/
 
 	protected DatabaseAccess() {
 		try {

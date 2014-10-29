@@ -13,7 +13,8 @@ import cs414.fmaster.parking.database.ParkingDatabaseAccess;
  */
 public class ParkingOperationsHandler {
 	private ParkingDatabaseAccess db;
-	private Gate entryGate, exitGate;
+	private Gate entryGate;
+	private Gate exitGate;
 	private static ParkingOperationsHandler instance = null;
 
 	private ParkingOperationsHandler(ParkingDatabaseAccess db) {

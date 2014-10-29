@@ -81,6 +81,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	private ParkingDatabaseAccess() {
 		super();
+		runScript("src/cs414/fmaster/parking/database/cleanupDBScript.sql");
 		initializeParkingDatabase();
 	}
 
@@ -1136,7 +1137,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 			}
 
 		} catch (SQLException sqe) {
-			throw new RuntimeException(sqe);
+			//throw new RuntimeException(sqe);
 		} catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
