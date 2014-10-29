@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_s7G8UF8REeSHv4sxZS-mVA" type="PapyrusUMLClassDiagram" name="Design Class Diagram" measurementUnit="Pixel">
-  <styles xmi:type="notation:DiagramStyle" xmi:id="_s7G8UV8REeSHv4sxZS-mVA"/>
-  <element xmi:type="uml:Model" href="model.uml#_s69Ln18REeSHv4sxZS-mVA"/>
-</notation:Diagram>
