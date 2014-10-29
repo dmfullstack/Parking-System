@@ -36,7 +36,7 @@ public class ConfigRatesUI {
 
 	private MainUI mainUI;
 	private MainController mainController;
-	public JPanel mainContentPnl = new JPanel();
+	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	JTable parkingRatesTbl = new JTable();
 
 	private static ConfigRatesUI instance = null;
@@ -54,18 +54,15 @@ public class ConfigRatesUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
 		mainContentPnl.setVisible(false);
 
 		// Parking Rates Panel
 		JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 		JLabel parkingRateLbl = new JLabel("Configure Parking Rates");
-		// EditableTableModel parkingRatesModel = new EditableTableModel(new Object[][] {}, new String[] { "Hours", "Rate" });
 		DefaultTableModel parkingRatesModel = new DefaultTableModel(new Object[][] {}, new String[] { "Hours", "Rate" });
 
 		parkingRatesTbl.setModel(parkingRatesModel);
 		mainUI.populateParkingRatesInTable(parkingRatesTbl);
-		// parkingRatesTbl.getColumnModel().getColumn(1).setCellEditor(new ParkingRatesTableCellEditor());
 		parkingRatesTbl.getColumnModel().getColumn(1).setCellEditor(parkingRatesTbl.getDefaultEditor(String.class));
 		parkingRatesTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		parkingRatesTbl.setFillsViewportHeight(true);
@@ -92,35 +89,6 @@ public class ConfigRatesUI {
 
 		mainUI.addGridBagComponent(mainUI.mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 	}
-
-	public class ParkingRatesTableCellEditor extends AbstractCellEditor implements TableCellEditor {
-
-		public boolean isCellEditable(int row, int column) {
-			// return (column != 0);
-			return column == 1;
-		}
-
-		@Override
-		public Object getCellEditorValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	}
-
-	/*
-	 * private class EditableTableModel extends DefaultTableModel { EditableTableModel(Object[][] objects, String[] columnNames) { super(objects,
-	 * columnNames); }
-	 * 
-	 * public boolean isCellEditable(int row, int column) {
-	 * 
-	 * } }
-	 */
 
 	private class ConfigRatesUIListener implements ActionListener {
 		ConfigRatesUIListener() {

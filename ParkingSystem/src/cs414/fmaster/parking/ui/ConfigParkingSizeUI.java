@@ -24,7 +24,7 @@ public class ConfigParkingSizeUI {
 
 	private MainUI mainUI;
 	private MainController mainController;
-	public JPanel mainContentPnl = new JPanel();
+	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	JLabel currentSizeLbl = new JLabel();
 	JLabel currentOccupancyLbl = new JLabel();
 	private JTextField newSizeTxt = new JTextField(5);
@@ -44,7 +44,6 @@ public class ConfigParkingSizeUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
 		mainContentPnl.setVisible(false);
 
 		// Configure Parking Size Panel

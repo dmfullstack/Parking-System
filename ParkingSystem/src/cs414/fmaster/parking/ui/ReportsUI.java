@@ -219,7 +219,7 @@ public class ReportsUI {
 		mainUI.addGridBagComponent(mainUI.mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 	}
 
-	public void resetUI() {
+	private void resetUI() {
 		reportTypesPnl.setVisible(true);
 		mostLeastUsedHourReportPnl.setVisible(false);
 		maxRevenueReportPnl.setVisible(false);
@@ -235,7 +235,7 @@ public class ReportsUI {
 	}
 
 	private class ReportsUIListener implements ActionListener {
-		ReportsUIListener() {
+		private ReportsUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -352,7 +352,7 @@ public class ReportsUI {
 		}
 	}
 
-	public boolean populateMostLeastUsedHourReport() {
+	private boolean populateMostLeastUsedHourReport() {
 		// Populate most and least used hours in last month report
 		mostLeastUsedHourModel.setRowCount(0);
 		ParkingTime mostUsedHourInLastMonth = mainController.reportsHandler.getMostUsedHourInLastMonth();
@@ -396,7 +396,7 @@ public class ReportsUI {
 
 	}
 
-	public boolean populateMaxRevenueDayReport() {
+	private boolean populateMaxRevenueDayReport() {
 		// Maximum revenue day in last month report
 		maxRevenueModel.setRowCount(0);
 		ParkingTime maxRevenueDayInLastMonth = mainController.reportsHandler.getMaxRevenueDayInLastMonth();
@@ -411,7 +411,7 @@ public class ReportsUI {
 	}
 
 	private boolean populateHourlyRevenueReport(String dayMonthYearStr) {
-		// TODO Auto-generated method stub
+		// Hourly Revenue Report
 		boolean isValidDay = mainController.paymentHandler.isValidDayMonthYearInPast(dayMonthYearStr);
 		if (isValidDay) {
 			ParkingTime dayMonthYear = new ParkingTime();
@@ -438,7 +438,7 @@ public class ReportsUI {
 	}
 
 	private boolean populateDailyRevenueReport(String monthYearStr) {
-		// TODO Auto-generated method stub
+		// Populate Daily Revenue Report
 		boolean isValidMonth = mainController.paymentHandler.isValidMonthYearInPast(monthYearStr);
 		if (isValidMonth) {
 			ParkingTime monthYear = new ParkingTime();
@@ -463,8 +463,8 @@ public class ReportsUI {
 		return false;
 	}
 
-	public boolean populateMonthlyRevenueReport(String yearStr) {
-		// TODO Auto-generated method stub
+	private boolean populateMonthlyRevenueReport(String yearStr) {
+		// Populate Monthly Revenue Report
 		boolean isValidYear = mainController.paymentHandler.isValidYearInPast(yearStr);
 		if (isValidYear) {
 			ParkingTime year = new ParkingTime();

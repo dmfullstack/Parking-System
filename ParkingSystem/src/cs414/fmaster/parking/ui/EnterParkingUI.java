@@ -24,7 +24,7 @@ import cs414.fmaster.parking.controller.MainController;
 public class EnterParkingUI {
 	private MainUI mainUI;
 	private MainController mainController;
-	public JPanel mainContentPnl = new JPanel();
+	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	JTable parkingRatesTbl = new JTable();
 	
 	private static EnterParkingUI instance = null;
@@ -42,8 +42,6 @@ public class EnterParkingUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
-
 		// Parking Rates Panel
 		JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");

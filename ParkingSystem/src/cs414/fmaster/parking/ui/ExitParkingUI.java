@@ -29,16 +29,16 @@ import cs414.fmaster.parking.controller.MainController;
 public class ExitParkingUI {
 	private MainUI mainUI;
 	private MainController mainController;
-	JPanel mainContentPnl = new JPanel();
+	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 	JTable parkingRatesTbl = new JTable();
 	private JTextField ticketTxt = new JTextField(10);
-	private JPanel ticketPnl = new JPanel();
-	private JPanel paymentPnl = new JPanel();
+	private JPanel ticketPnl = new JPanel(new GridBagLayout());
+	private JPanel paymentPnl = new JPanel(new GridBagLayout());
 	private JLabel totalPaymentLbl = new JLabel("");
 	private JLabel paymentDueLbl = new JLabel("");
 	private JPanel paymentCardsPnl = new JPanel(new CardLayout());
-	private JPanel noPaymentPnl = new JPanel();
+	private JPanel noPaymentPnl = new JPanel(new GridBagLayout());
 	private JTextField cashTxt = new JTextField(4);
 	private JTextField nameTxt = new JTextField(10);
 	private JTextField addressTxt = new JTextField(10);
@@ -67,8 +67,6 @@ public class ExitParkingUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
-
 		// Parking Rates Panel
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");
 		DefaultTableModel parkingRatesModel = new DefaultTableModel(new Object[][] {}, new String[] {"Hours", "Rate"});		
@@ -83,7 +81,6 @@ public class ExitParkingUI {
 		mainUI.addGridBagComponent(parkingRatesPnl, parkingRatesTbl, GridBagConstraints.BOTH, 0, 2);
 				
 		// Enter Ticket Panel
-		ticketPnl.setLayout(new GridBagLayout());
 		JLabel emptyLbl1 = new JLabel("  ");
 		JLabel enterTicketLbl = new JLabel("Enter Ticket Number: ");
 		JButton submitTicket = new JButton("Submit");
@@ -97,7 +94,6 @@ public class ExitParkingUI {
 		lostTicket.addActionListener(new ExitParkingUIListener());
 
 		// Payment Panel
-		paymentPnl.setLayout(new GridBagLayout());
 		JLabel emptyLbl2 = new JLabel("  ");
 		JLabel paymentLbl = new JLabel("Payment Type: ");
 		String paymentTypes[] = { "Cash", "Credit" };
@@ -145,7 +141,6 @@ public class ExitParkingUI {
 		paymentPnl.setVisible(false);
 
 		// No Payment Exception Panel
-		noPaymentPnl.setLayout(new GridBagLayout());
 		mainUI.addGridBagComponent(noPaymentPnl, new JLabel("Name: "), GridBagConstraints.BOTH, 0, 0);
 		mainUI.addGridBagComponent(noPaymentPnl, name2Txt, GridBagConstraints.BOTH, 1, 0);
 		mainUI.addGridBagComponent(noPaymentPnl, new JLabel("License: "), GridBagConstraints.BOTH, 0, 1);

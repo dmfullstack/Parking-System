@@ -23,7 +23,7 @@ import cs414.fmaster.parking.controller.MainController;
 public class ViewRatesUI {
 	private MainUI mainUI;
 	private MainController mainController;
-	JPanel mainContentPnl = new JPanel();
+	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	JTable parkingRatesTbl = new JTable();
 
 	private static ViewRatesUI instance = null;
@@ -41,8 +41,6 @@ public class ViewRatesUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
-
 		// Parking Rates Panel
 		JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 		JLabel parkingRateLbl = new JLabel("Current Parking Rates");
@@ -71,7 +69,7 @@ public class ViewRatesUI {
 
 	private class ViewRatesListener implements ActionListener {
 
-		ViewRatesListener() {
+		private ViewRatesListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

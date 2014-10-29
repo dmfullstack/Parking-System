@@ -21,10 +21,10 @@ import cs414.fmaster.parking.controller.MainController;
 public class LoginUI {
 	private MainUI mainUI;
 	private MainController mainController;
-	JPanel mainContentPnl = new JPanel();
-	private JPanel loginPnl = new JPanel();
-	private JPanel securityPnl = new JPanel();
-	private JPanel newPwdPnl = new JPanel();
+	JPanel mainContentPnl = new JPanel(new GridBagLayout());
+	private JPanel loginPnl = new JPanel(new GridBagLayout());
+	private JPanel securityPnl = new JPanel(new GridBagLayout());
+	private JPanel newPwdPnl = new JPanel(new GridBagLayout());
 	private JTextField usernameTxt = new JTextField(10);
 	private JTextField pwdTxt = new JTextField(10);
 	private JLabel securityQuesLbl = new JLabel("");
@@ -48,10 +48,7 @@ public class LoginUI {
 	}
 
 	public void setupUI() {
-		mainContentPnl.setLayout(new GridBagLayout());
-
 		// Login Panel
-		loginPnl.setLayout(new GridBagLayout());
 		mainUI.addGridBagComponent(loginPnl, new JLabel("Username: "), GridBagConstraints.BOTH, 0, 0);
 		mainUI.addGridBagComponent(loginPnl, usernameTxt, GridBagConstraints.BOTH, 1, 0);
 		mainUI.addGridBagComponent(loginPnl, new JLabel("Password: "), GridBagConstraints.BOTH, 0, 1);
@@ -64,7 +61,6 @@ public class LoginUI {
 		forgotPwdBtn.addActionListener(new LoginUIListener());
 
 		// Security Question and Answer Panel
-		securityPnl.setLayout(new GridBagLayout());
 		mainUI.addGridBagComponent(securityPnl, new JLabel("Security Question: "), GridBagConstraints.BOTH, 0, 0);
 		mainUI.addGridBagComponent(securityPnl, securityQuesLbl, GridBagConstraints.BOTH, 1, 0);
 		mainUI.addGridBagComponent(securityPnl, new JLabel("Security Answer: "), GridBagConstraints.BOTH, 0, 1);
@@ -74,7 +70,6 @@ public class LoginUI {
 		verifyBtn.addActionListener(new LoginUIListener());
 
 		// Setting New Password Panel
-		newPwdPnl.setLayout(new GridBagLayout());
 		mainUI.addGridBagComponent(newPwdPnl, new JLabel("New Password: "), GridBagConstraints.BOTH, 0, 0);
 		mainUI.addGridBagComponent(newPwdPnl, newPwdTxt, GridBagConstraints.BOTH, 1, 0);
 		JButton changePwdBtn = new JButton("Change Password");
