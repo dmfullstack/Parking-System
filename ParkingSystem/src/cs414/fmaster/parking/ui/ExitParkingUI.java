@@ -187,7 +187,7 @@ public class ExitParkingUI {
 	}
 
 	private class ExitParkingUIListener implements ActionListener {
-		ExitParkingUIListener() {
+		private ExitParkingUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -323,7 +323,7 @@ public class ExitParkingUI {
 
 	private class PaymentItemListener implements ItemListener {
 
-		PaymentItemListener() {
+		private PaymentItemListener() {
 		}
 
 		public void itemStateChanged(ItemEvent evt) {

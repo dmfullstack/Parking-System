@@ -26,8 +26,8 @@ public class MainUI extends JFrame {
 	public ConfigRatesUI configRatesUI;
 	public ConfigParkingSizeUI configParkingSizeUI;
 	public ReportsUI reportsUI;
-	public JPanel mainPnl = new JPanel();
-	public JPanel mainContentPnl = new JPanel();
+	public JPanel mainPnl = new JPanel(new GridBagLayout());
+	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JLabel messageLbl = new JLabel("");
 
 	private static MainUI instance = null;
@@ -76,7 +76,6 @@ public class MainUI extends JFrame {
 		setVisible(true);
 
 		// Top Portion of Main Panel - Content
-		mainContentPnl.setLayout(new GridBagLayout());
 		JPanel topLeftPnl = new JPanel();
 		JPanel topRightPnl = new JPanel();
 		addGridBagComponent(mainContentPnl, topLeftPnl, GridBagConstraints.BOTH, 0, 0);
@@ -117,7 +116,6 @@ public class MainUI extends JFrame {
 
 		// pack();
 		// Main Panel
-		mainPnl.setLayout(new GridBagLayout());
 		addGridBagComponent(mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 		addGridBagComponent(mainPnl, messagePnl, GridBagConstraints.BOTH, 0, 1);
 	}
@@ -152,7 +150,7 @@ public class MainUI extends JFrame {
 		displayMessage("Welcome to My Parking!! " + availableParking + " out of " + parkingSize + " parking spots available.");
 	}
 
-	public void displayMessage(String message) {
+	private void displayMessage(String message) {
 		messageLbl.setText(message);
 	}
 
@@ -166,9 +164,9 @@ public class MainUI extends JFrame {
 		}
 	}
 
-	public class MainUIListener implements ActionListener {
+	private class MainUIListener implements ActionListener {
 
-		MainUIListener() {
+		private MainUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

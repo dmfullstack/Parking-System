@@ -33,27 +33,60 @@ public class ReportsHandler {
 
 	// HAS SYSOUTS
 
-	public Hour getMostUsedHourInLastMonth() {
-		Hour lastMonth = getLastMonth();
-		List<Hour> hoursInLastMonth = getHoursDaysInMonth(lastMonth);
+	public ParkingTime getMostUsedHourInLastMonth() {
+		ParkingTime lastMonth = getLastMonth();
+		List<ParkingTime> hoursInLastMonth = getHoursDaysInMonth(lastMonth);
 		setHourlyStatsOfMonth(hoursInLastMonth);
-		Hour mostUsedHour = Collections.max(hoursInLastMonth, new OccupancyPercentComparator());
+		ParkingTime mostUsedHour = Collections.max(hoursInLastMonth, new OccupancyPercentComparator());
 		return mostUsedHour;
 	}
 
-	public Hour getLeastUsedHourInLastMonth() {
-		Hour lastMonth = getLastMonth();
-		List<Hour> hoursInLastMonth = getHoursDaysInMonth(lastMonth);
+	public ParkingTime getLeastUsedHourInLastMonth() {
+		ParkingTime lastMonth = getLastMonth();
+		List<ParkingTime> hoursInLastMonth = getHoursDaysInMonth(lastMonth);
 		setHourlyStatsOfMonth(hoursInLastMonth);
-		Hour leastUsedHour = Collections.min(hoursInLastMonth, new OccupancyPercentComparator());
+		ParkingTime leastUsedHour = Collections.min(hoursInLastMonth, new OccupancyPercentComparator());
 		return leastUsedHour;
 	}
 
-	public Hour getLastMonth() {
+	public ParkingTime getMaxRevenueDayInLastMonth() {
+		ParkingTime lastMonth = getLastMonth();
+		List<ParkingTime> daysInLastMonth = getDaysInMonth(lastMonth);
+		setDailyRevenueOfMonth(daysInLastMonth);
+		ParkingTime maxRevenueDay = Collections.max(daysInLastMonth, new PaymentComparator());
+		return maxRevenueDay;
+	}
+
+	public List<ParkingTime> getHourlyRevenueForDayMonthYear(ParkingTime dayMonthYear) {
+		List<ParkingTime> hoursInDay = getHoursInDay(dayMonthYear);
+		setHourlyRevenueOfDay(hoursInDay);
+		return hoursInDay;
+	}
+
+	public List<ParkingTime> getDailyRevenueForMonthYear(ParkingTime monthYear) {
+		List<ParkingTime> daysInMonth = getDaysInMonth(monthYear);
+		setDailyRevenueOfMonth(daysInMonth);
+		return daysInMonth;
+	}
+
+	public List<ParkingTime> getMonthlyRevenueForYear(ParkingTime year) {
+		List<ParkingTime> monthsInYear = getMonthsInYear(year);
+		setMonthlyRevenueOfYear(monthsInYear);
+		return monthsInYear;
+	}
+
+	public List<ParkingTime> getDailyOccupancyForLastMonth() {
+		ParkingTime lastMonth = getLastMonth();
+		List<ParkingTime> daysInLastMonth = getDaysInMonth(lastMonth);
+		setDailyOccupancyOfMonth(daysInLastMonth);
+		return daysInLastMonth;
+	}
+
+	public ParkingTime getLastMonth() {
 		Calendar today = Calendar.getInstance();
 		int currentMonth = today.get(Calendar.MONTH) + 1;
 		int currentYear = today.get(Calendar.YEAR);
-		Hour lastMonth = new Hour();
+		ParkingTime lastMonth = new ParkingTime();
 		if (currentMonth == 1) {
 			lastMonth.setMonth(12);
 			lastMonth.setYear(currentYear - 1);
@@ -64,15 +97,31 @@ public class ReportsHandler {
 		return lastMonth;
 	}
 
-	private List<Hour> getHoursDaysInMonth(Hour selectedMonth) {
-		List<Hour> hoursInMonth = new ArrayList<Hour>();
+	private List<ParkingTime> getHoursInDay(ParkingTime dayMonthYear) {
+		List<ParkingTime> hoursInDay = new ArrayList<ParkingTime>();
+		int day = dayMonthYear.getDay();
+		int month = dayMonthYear.getMonth();
+		int year = dayMonthYear.getYear();
+		for (int j = 1; j <= 24; j++) {
+			ParkingTime hr = new ParkingTime();
+			hr.setHour(j);
+			hr.setDay(day);
+			hr.setMonth(month);
+			hr.setYear(year);
+			hoursInDay.add(hr);
+		}
+		return hoursInDay;
+	}
+
+	private List<ParkingTime> getHoursDaysInMonth(ParkingTime selectedMonth) {
+		List<ParkingTime> hoursInMonth = new ArrayList<ParkingTime>();
 		int month = selectedMonth.getMonth();
 		int year = selectedMonth.getYear();
 		Calendar mycal = new GregorianCalendar(year, month - 1, 1);
 		int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		for (int i = 1; i <= daysInMonth; i++) {
 			for (int j = 1; j <= 24; j++) {
-				Hour hr = new Hour();
+				ParkingTime hr = new ParkingTime();
 				hr.setHour(j);
 				hr.setDay(i);
 				hr.setMonth(month);
@@ -83,14 +132,14 @@ public class ReportsHandler {
 		return hoursInMonth;
 	}
 
-	private List<Hour> getDaysInMonth(Hour selectedMonth) {
-		List<Hour> hoursInMonth = new ArrayList<Hour>();
+	private List<ParkingTime> getDaysInMonth(ParkingTime selectedMonth) {
+		List<ParkingTime> hoursInMonth = new ArrayList<ParkingTime>();
 		int month = selectedMonth.getMonth();
 		int year = selectedMonth.getYear();
 		Calendar mycal = new GregorianCalendar(year, month - 1, 1);
 		int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		for (int i = 1; i <= daysInMonth; i++) {
-			Hour day = new Hour();
+			ParkingTime day = new ParkingTime();
 			day.setDay(i);
 			day.setMonth(month);
 			day.setYear(year);
@@ -99,12 +148,11 @@ public class ReportsHandler {
 		return hoursInMonth;
 	}
 	
-	private List<Hour> getMonthsInYear(Hour selectedYear) {
-		List<Hour> monthsInYear = new ArrayList<Hour>();
+	private List<ParkingTime> getMonthsInYear(ParkingTime selectedYear) {
 		int year = selectedYear.getYear();
-		
+		List<ParkingTime> monthsInYear = new ArrayList<ParkingTime>();
 		for (int i = 1; i <= 12; i++) {
-			Hour month = new Hour();
+			ParkingTime month = new ParkingTime();
 			month.setMonth(i);
 			month.setYear(year);
 			monthsInYear.add(month);
@@ -112,10 +160,10 @@ public class ReportsHandler {
 		return monthsInYear;
 	}
 
-	private void setHourlyStatsOfMonth(List<Hour> hoursInSelectedMonth) {
-		for (Hour hour : hoursInSelectedMonth) {
-			db.setParkingAvailabilityInHour(hour);
-			db.setParkingSizeInHour(hour);
+	private void setHourlyStatsOfMonth(List<ParkingTime> hoursInSelectedMonth) {
+		for (ParkingTime hour : hoursInSelectedMonth) {
+			db.setParkingAvailabilityInHourInParkingTime(hour);
+			db.setParkingAvailabilityInHourInParkingTime(hour);
 			int size = hour.getParkingSize();
 			int availability = hour.getAvailability();
 			int occupancy = size - availability;
@@ -126,92 +174,43 @@ public class ReportsHandler {
 		}
 	}
 
-	private void setMonthlyRevenueOfYear(List<Hour> monthsInSelectedYear) {
-		for (Hour month : monthsInSelectedYear) {
-			db.setPaymentForMonthInHour(month);
+	private void setHourlyRevenueOfDay(List<ParkingTime> hoursInSelectedDay) {
+		for (ParkingTime hr : hoursInSelectedDay) {
+			db.setPaymentForHourInParkingTime(hr);
+		}
+	}
+
+	private void setDailyRevenueOfMonth(List<ParkingTime> daysInSelectedMonth) {
+		for (ParkingTime day : daysInSelectedMonth) {
+			db.setPaymentForDayInParkingTime(day);
+		}
+	}
+
+	private void setMonthlyRevenueOfYear(List<ParkingTime> monthsInSelectedYear) {
+		for (ParkingTime month : monthsInSelectedYear) {
+			db.setPaymentForMonthInParkingTime(month);
 		}
 	}
 	
-	private void setDailyRevenueOfMonth(List<Hour> daysInSelectedMonth) {
-		for (Hour day : daysInSelectedMonth) {
-			db.setPaymentForDayInHour(day);
-		}
-	}
-	
-	private void setDailyOccupancyOfMonth(List<Hour> daysInSelectedMonth) {
-		for (Hour day : daysInSelectedMonth) {
-			db.setOccupancyForDayInHour(day);
+	private void setDailyOccupancyOfMonth(List<ParkingTime> daysInSelectedMonth) {
+		for (ParkingTime day : daysInSelectedMonth) {
+			db.setOccupancyForDayInParkingTime(day);
 		}
 	}
 
-	private void setHourlyRevenueOfDay(List<Hour> hoursInSelectedDay) {
-		for (Hour hr : hoursInSelectedDay) {
-			db.setPaymentForHourInHour(hr);
-		}
-	}
-
-	public Hour getMaxRevenueDayInLastMonth() {
-		Hour lastMonth = getLastMonth();
-		List<Hour> daysInLastMonth = getDaysInMonth(lastMonth);
-		setDailyRevenueOfMonth(daysInLastMonth);
-		Hour maxRevenueDay = Collections.max(daysInLastMonth, new PaymentComparator());
-		return maxRevenueDay;
-	}
-
-	public class OccupancyPercentComparator implements Comparator<Hour> {
+	private class OccupancyPercentComparator implements Comparator<ParkingTime> {
 
 		@Override
-		public int compare(Hour first, Hour second) {
+		public int compare(ParkingTime first, ParkingTime second) {
 			return new Double(first.getOccupancyPercent()).compareTo(new Double(second.getOccupancyPercent()));
 		}
 	}
 
-	public class PaymentComparator implements Comparator<Hour> {
+	private class PaymentComparator implements Comparator<ParkingTime> {
 
 		@Override
-		public int compare(Hour first, Hour second) {
+		public int compare(ParkingTime first, ParkingTime second) {
 			return new Double(first.getPayment()).compareTo(new Double(second.getPayment()));
 		}
-	}
-
-	public List<Hour> getDailyRevenueForMonthYear(Hour monthYear) {
-		List<Hour> daysInMonth = getDaysInMonth(monthYear);
-		setDailyRevenueOfMonth(daysInMonth);
-		return daysInMonth;
-	}
-
-	public List<Hour> getHourlyRevenueForDayMonthYear(Hour dayMonthYear) {
-		List<Hour> hoursInDay = getHoursInDay(dayMonthYear);
-		setHourlyRevenueOfDay(hoursInDay);
-		return hoursInDay;
-	}
-
-	private List<Hour> getHoursInDay(Hour dayMonthYear) {
-		List<Hour> hoursInDay = new ArrayList<Hour>();
-		int day = dayMonthYear.getDay();
-		int month = dayMonthYear.getMonth();
-		int year = dayMonthYear.getYear();
-		for (int j = 1; j <= 24; j++) {
-			Hour hr = new Hour();
-			hr.setHour(j);
-			hr.setDay(day);
-			hr.setMonth(month);
-			hr.setYear(year);
-			hoursInDay.add(hr);
-		}
-		return hoursInDay;
-	}
-
-	public List<Hour> getMonthlyRevenueForYear(Hour year) {
-		List<Hour> monthsInYear = getMonthsInYear(year);
-		setMonthlyRevenueOfYear(monthsInYear);
-		return monthsInYear;
-	}
-
-	public List<Hour> getDailyOccupancyForLastMonth() {
-		Hour lastMonth = getLastMonth();
-		List<Hour> daysInLastMonth = getDaysInMonth(lastMonth);
-		setDailyOccupancyOfMonth(daysInLastMonth);
-		return daysInLastMonth;
 	}
 }

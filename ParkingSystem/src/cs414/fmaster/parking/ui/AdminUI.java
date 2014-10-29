@@ -136,7 +136,7 @@ public class AdminUI {
 	}
 
 	private class AdminUIListener implements ActionListener {
-		AdminUIListener() {
+		private AdminUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

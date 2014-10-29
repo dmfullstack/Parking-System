@@ -29,27 +29,43 @@ public class ParkingOperationsHandler {
 		return instance;
 	}
 
+	public void openEntryGate() {
+		entryGate.openGate();
+	}
+
+	public void closeEntryGate() {
+		entryGate.closeGate();
+	}
+
+	public void openExitGate() {
+		exitGate.openGate();
+	}
+
+	public void closeExitGate() {
+		exitGate.closeGate();
+	}
+
 	public int getCurrentParkingSize() {
 		int size = db.getCurrentParkingSize();
 		return size;
 	}
 
-	public int getCurrentParkingOccupancy() {
-		return getCurrentParkingSize() - getCurrentAvailability();
-	}
-	
 	public void updateParkingSize(int newSize) {
 		int newAvailableSpots = newSize - getCurrentParkingSize();
 		int newTotalAvailability = newAvailableSpots + getCurrentAvailability();
 		db.updateParkingAvailability(newTotalAvailability);
 		db.configureParkingSize(newSize);
 	}
-	
+
 	public int getCurrentAvailability() {
 		int avail = db.getCurrentParkingAvailability();
 		return avail;
 	}
 
+	public int getCurrentParkingOccupancy() {
+		return getCurrentParkingSize() - getCurrentAvailability();
+	}
+	
 	public boolean isParkingAvailable() {
 		int pAvailability = db.getCurrentParkingAvailability();
 		if (pAvailability == 0) {
@@ -89,21 +105,5 @@ public class ParkingOperationsHandler {
 			return ticketumber;
 		}
 		return 0;
-	}
-
-	public void openEntryGate() {
-		entryGate.openGate();
-	}
-
-	public void openExitGate() {
-		exitGate.openGate();
-	}
-
-	public void closeEntryGate() {
-		entryGate.closeGate();
-	}
-
-	public void closeExitGate() {
-		exitGate.closeGate();
 	}
 }

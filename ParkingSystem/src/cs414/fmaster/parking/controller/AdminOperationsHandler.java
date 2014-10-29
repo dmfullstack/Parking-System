@@ -24,6 +24,14 @@ public class AdminOperationsHandler {
 		return instance;
 	}
 
+	public boolean isActiveUserExist(String username) {
+		boolean activeUserExists = db.isValidAccount(username);
+		if (activeUserExists) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean login(String username, String password) {
 		boolean isActiveUser = isActiveUserExist(username);
 		if (isActiveUser) {
@@ -36,9 +44,10 @@ public class AdminOperationsHandler {
 		return false;
 	}
 
-	public boolean isActiveUserExist(String username) {
-		boolean activeUserExists = db.isValidAccount(username);
-		if (activeUserExists) {
+	public boolean verifyPassword(String password) {
+		String loggedInAdmin = db.getLoggedInAdmin();
+		String pwdInDb = db.getPassword(loggedInAdmin);
+		if (pwdInDb.equals(password)) {
 			return true;
 		}
 		return false;
@@ -61,22 +70,9 @@ public class AdminOperationsHandler {
 		db.setPassword(username, password);
 	}
 
-	public void logout() {
-		db.setAdminLoggedOut();
-	}
-
 	public void setPassword(String newPwd) {
 		String loggedInAdmin = db.getLoggedInAdmin();
 		setPassword(loggedInAdmin, newPwd);
-	}
-
-	public boolean verifyPassword(String password) {
-		String loggedInAdmin = db.getLoggedInAdmin();
-		String pwdInDb = db.getPassword(loggedInAdmin);
-		if (pwdInDb.equals(password)) {
-			return true;
-		}
-		return false;
 	}
 
 	public boolean addAdminAccount(String username, String password, String securityQuestion, String securityAnswer) {
@@ -100,5 +96,9 @@ public class AdminOperationsHandler {
 			return true;
 		}
 		return false;
+	}
+
+	public void logout() {
+		db.setAdminLoggedOut();
 	}
 }

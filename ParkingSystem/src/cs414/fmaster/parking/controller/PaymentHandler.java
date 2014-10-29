@@ -33,6 +33,20 @@ public class PaymentHandler {
 		return instance;
 	}
 
+	public void submitTicket(int ticketNumber) {
+		db.setTicketAsSubmitted(ticketNumber);
+	}
+
+	public void enterPayment(int ticketNumber, double amount) {
+		if (ticketNumber == 0) {
+			db.insertPayment(amount);
+			payOffWithoutTicket(amount);
+		} else {
+			db.insertPayment(amount, ticketNumber);
+			payOffTicket(ticketNumber);
+		}
+	}
+
 	public double calculateTotalPayment(int ticketNumber) {
 		Calendar issueTime = db.getTicketIssueTime(ticketNumber);
 		long issueTimeMS = issueTime.getTimeInMillis();
@@ -70,13 +84,12 @@ public class PaymentHandler {
 		return totalPayment;
 	}
 
-	public void enterPayment(int ticketNumber, double amount) {
-		if (ticketNumber == 0) {
-			db.insertPayment(amount);
-			payOffWithoutTicket(amount);
-		} else {
-			db.insertPayment(amount, ticketNumber);
-			payOffTicket(ticketNumber);
+	private void payOffTicket(int ticketNumber) {
+		double totalCharge = calculateTotalPayment(ticketNumber);
+		double totalPaymentsMade = db.getPaymentForTicket(ticketNumber);
+		if (totalPaymentsMade == totalCharge) {
+			db.setTicketAsPaid(ticketNumber);
+			db.increaseParkingAvailability();
 		}
 	}
 
@@ -89,18 +102,39 @@ public class PaymentHandler {
 		}
 	}
 
-	private void payOffTicket(int ticketNumber) {
-		double totalCharge = calculateTotalPayment(ticketNumber);
-		double totalPaymentsMade = db.getPaymentForTicket(ticketNumber);
-		if (totalPaymentsMade == totalCharge) {
-			db.setTicketAsPaid(ticketNumber);
-			db.increaseParkingAvailability();
-		}
+	public double getMaximumPayment() {
+		double maxPayment = db.getMaximumRate();
+		return maxPayment;
+	}
+
+	public void enterPaymentException(String name, String license, double amountDue) {
+		db.insertPaymentException(name, license, amountDue);
+		db.increaseParkingAvailability();
 	}
 
 	public boolean validateCreditPayment(String name, String address, String creditCard, String securityCode, String expDate) {
 		boolean isValidMonthYearStrInFuture = isValidMonthYearInFuture(expDate);
 		return isValidMonthYearStrInFuture;
+	}
+
+	public boolean isValidYearInPast(String yearStr) {
+		int year = Integer.parseInt(yearStr);
+		
+		Calendar enteredYear = new GregorianCalendar();
+		enteredYear.set(Calendar.YEAR, year);
+		enteredYear.set(Calendar.MONTH, 0);
+		enteredYear.set(Calendar.DATE, 1);
+		enteredYear.set(Calendar.HOUR_OF_DAY, 0);
+		enteredYear.set(Calendar.MINUTE, 0);
+		enteredYear.set(Calendar.SECOND, 0);
+	
+		Calendar thisYear = new GregorianCalendar();
+		thisYear.set(Calendar.MONTH, 0);
+		thisYear.set(Calendar.DATE, 1);
+		thisYear.set(Calendar.HOUR_OF_DAY, 0);
+		thisYear.set(Calendar.MINUTE, 0);
+		thisYear.set(Calendar.SECOND, 0);
+		return enteredYear.before(thisYear);
 	}
 
 	public boolean isValidMonthYearInPast(String monthYear) {
@@ -149,20 +183,6 @@ public class PaymentHandler {
 		return enterMonthYear.after(thisMonth);
 	}
 
-	public double getMaximumPayment() {
-		double maxPayment = db.getMaximumRate();
-		return maxPayment;
-	}
-
-	public void submitTicket(int ticketNumber) {
-		db.setTicketAsSubmitted(ticketNumber);
-	}
-
-	public void enterPaymentException(String name, String license, double amountDue) {
-		db.insertPaymentException(name, license, amountDue);
-		db.increaseParkingAvailability();
-	}
-
 	public boolean isValidDayMonthYearInPast(String dayMonthYearStr) {
 		StringTokenizer st = new StringTokenizer(dayMonthYearStr, "-");
 		int month = Integer.parseInt(st.nextToken());
@@ -196,25 +216,5 @@ public class PaymentHandler {
 		today.set(Calendar.MINUTE, 0);
 		today.set(Calendar.SECOND, 0);
 		return enteredDayMonthYear.before(today);
-	}
-
-	public boolean isValidYearInPast(String yearStr) {
-		int year = Integer.parseInt(yearStr);
-		
-		Calendar enteredYear = new GregorianCalendar();
-		enteredYear.set(Calendar.YEAR, year);
-		enteredYear.set(Calendar.MONTH, 0);
-		enteredYear.set(Calendar.DATE, 1);
-		enteredYear.set(Calendar.HOUR_OF_DAY, 0);
-		enteredYear.set(Calendar.MINUTE, 0);
-		enteredYear.set(Calendar.SECOND, 0);
-
-		Calendar thisYear = new GregorianCalendar();
-		thisYear.set(Calendar.MONTH, 0);
-		thisYear.set(Calendar.DATE, 1);
-		thisYear.set(Calendar.HOUR_OF_DAY, 0);
-		thisYear.set(Calendar.MINUTE, 0);
-		thisYear.set(Calendar.SECOND, 0);
-		return enteredYear.before(thisYear);
 	}
 }

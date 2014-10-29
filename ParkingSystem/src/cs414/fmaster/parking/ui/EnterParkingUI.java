@@ -75,7 +75,7 @@ public class EnterParkingUI {
 
 	private class EnterParkingUIListener implements ActionListener {
 
-		EnterParkingUIListener() {
+		private EnterParkingUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

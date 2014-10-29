@@ -22,15 +22,15 @@ public class LoginUI {
 	private MainUI mainUI;
 	private MainController mainController;
 	JPanel mainContentPnl = new JPanel();
-	JPanel loginPnl = new JPanel();
-	JPanel securityPnl = new JPanel();
-	JPanel newPwdPnl = new JPanel();
-	JTextField usernameTxt = new JTextField(10);
-	JTextField pwdTxt = new JTextField(10);
-	JLabel securityQuesLbl = new JLabel("");
-	JTextField securityAnsTxt = new JTextField(10);
-	JTextField newPwdTxt = new JTextField(10);
-	JButton backBtn = new JButton("Go Back");
+	private JPanel loginPnl = new JPanel();
+	private JPanel securityPnl = new JPanel();
+	private JPanel newPwdPnl = new JPanel();
+	private JTextField usernameTxt = new JTextField(10);
+	private JTextField pwdTxt = new JTextField(10);
+	private JLabel securityQuesLbl = new JLabel("");
+	private JTextField securityAnsTxt = new JTextField(10);
+	private JTextField newPwdTxt = new JTextField(10);
+	private JButton backBtn = new JButton("Go Back");
 	private String username;
 
 	private static LoginUI instance = null;
@@ -95,7 +95,7 @@ public class LoginUI {
 		mainUI.addGridBagComponent(mainUI.mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 	}
 
-	public void resetUI() {
+	private void resetUI() {
 		loginPnl.setVisible(true);
 		securityPnl.setVisible(false);
 		newPwdPnl.setVisible(false);
@@ -108,7 +108,7 @@ public class LoginUI {
 	}
 
 	private class LoginUIListener implements ActionListener {
-		LoginUIListener() {
+		private LoginUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

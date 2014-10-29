@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import cs414.fmaster.parking.controller.Hour;
+import cs414.fmaster.parking.controller.ParkingTime;
 import cs414.fmaster.parking.controller.ParkingRate;
 
 /**
@@ -74,7 +74,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	private static final String ALTER_TICKETS = "ALTER TABLE tickets AUTO_INCREMENT = 100000";
 
-	protected ParkingDatabaseAccess() {
+	private ParkingDatabaseAccess() {
 		super();
 		initializeParkingDatabase();
 	}
@@ -88,12 +88,12 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	// Method to initialize database tables
 	private void initializeParkingDatabase() {
-		int initialSize = 5;
+		//int initialSize = 5;
 		createParkingSize();
-		insertParkingSize(initialSize);
+		//insertParkingSize(initialSize);
 
 		createParkingAvailability();
-		insertParkingAvailability(initialSize);
+		//insertParkingAvailability(initialSize);
 
 		createParkingRates();
 		insertParkingRate(0.5, 20.5);
@@ -189,7 +189,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setParkingSizeInHour(Hour selectedHour) {
+	public void setParkingSizeInHourInParkingTime(ParkingTime selectedHour) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -310,7 +310,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setParkingAvailabilityInHour(Hour selectedHour) {
+	public void setParkingAvailabilityInHourInParkingTime(ParkingTime selectedHour) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -835,7 +835,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setOccupancyForDayInHour(Hour selectedDay) {
+	public void setOccupancyForDayInParkingTime(ParkingTime selectedDay) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -949,7 +949,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setPaymentForHourInHour(Hour selectedHour) {
+	public void setPaymentForHourInParkingTime(ParkingTime selectedHour) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -989,7 +989,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setPaymentForDayInHour(Hour selectedDay) {
+	public void setPaymentForDayInParkingTime(ParkingTime selectedDay) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -1029,7 +1029,7 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 		}
 	}
 
-	public void setPaymentForMonthInHour(Hour selectedMonth) {
+	public void setPaymentForMonthInParkingTime(ParkingTime selectedMonth) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

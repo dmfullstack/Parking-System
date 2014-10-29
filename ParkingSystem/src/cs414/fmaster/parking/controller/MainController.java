@@ -33,19 +33,21 @@ public class MainController {
 		return instance;
 	}
 
+	private void initializeDB() {
+		db = ParkingDatabaseAccess.getInstance();
+	}
+
 	private void initializeHandlers() {
 		parkingOpsHandler = ParkingOperationsHandler.getInstance(db);
 		paymentHandler = PaymentHandler.getInstance(db);
 		adminOpsHandler = AdminOperationsHandler.getInstance(db);
 		reportsHandler = ReportsHandler.getInstance(db);
 	}
+	
 	private void initializeUI() {
 		ui = MainUI.getInstance(this);
 	}
-	private void initializeDB() {
-		db = ParkingDatabaseAccess.getInstance();
-	}
-
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {

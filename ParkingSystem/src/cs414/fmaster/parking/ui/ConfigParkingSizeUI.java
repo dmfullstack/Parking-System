@@ -77,7 +77,7 @@ public class ConfigParkingSizeUI {
 	}
 
 	private class ConfigParkingSizeUIListener implements ActionListener {
-		ConfigParkingSizeUIListener() {
+		private ConfigParkingSizeUIListener() {
 		}
 
 		public void actionPerformed(ActionEvent e) {

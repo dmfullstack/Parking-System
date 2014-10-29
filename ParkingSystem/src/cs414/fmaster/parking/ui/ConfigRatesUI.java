@@ -93,10 +93,6 @@ public class ConfigRatesUI {
 		mainUI.addGridBagComponent(mainUI.mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 	}
 
-	public void resetUI() {
-
-	}
-
 	public class ParkingRatesTableCellEditor extends AbstractCellEditor implements TableCellEditor {
 
 		public boolean isCellEditable(int row, int column) {
@@ -155,19 +151,16 @@ public class ConfigRatesUI {
 					if (validRates) {
 						mainController.parkingOpsHandler.updateParkingRates(parkingRates);
 						JOptionPane.showMessageDialog(mainUI, "Parking Rates updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
-						resetUI();
 						mainUI.showHideContentPanel(mainUI.adminUI.mainContentPnl, mainContentPnl);
 					}
 				}
 			}
 			if (e.getActionCommand().equals("Go Back")) {
-				resetUI();
 				mainUI.showHideContentPanel(mainUI.adminUI.mainContentPnl, mainContentPnl);
 			}
 			if (e.getActionCommand().equals("Logout")) {
 				JOptionPane.showMessageDialog(mainUI, "Logging out...", "Logout", JOptionPane.INFORMATION_MESSAGE);
 				mainController.adminOpsHandler.logout();
-				resetUI();
 				mainUI.showHideContentPanel(mainUI.mainContentPnl, mainContentPnl);
 				mainUI.displayWelcomeMessage();
 			}

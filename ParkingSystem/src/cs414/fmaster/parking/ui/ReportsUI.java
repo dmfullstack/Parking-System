@@ -19,7 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import cs414.fmaster.parking.controller.Hour;
+import cs414.fmaster.parking.controller.ParkingTime;
 import cs414.fmaster.parking.controller.MainController;
 import cs414.fmaster.parking.controller.ParkingRate;
 
@@ -32,7 +32,7 @@ public class ReportsUI {
 	private MainUI mainUI;
 	private MainController mainController;
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
-	public JPanel reportTypesPnl = new JPanel(new GridBagLayout());
+	private JPanel reportTypesPnl = new JPanel(new GridBagLayout());
 
 	private JPanel mostLeastUsedHourReportPnl = new JPanel(new GridBagLayout());
 	private JLabel lastMonth1Lbl = new JLabel();
@@ -355,9 +355,9 @@ public class ReportsUI {
 	public boolean populateMostLeastUsedHourReport() {
 		// Populate most and least used hours in last month report
 		mostLeastUsedHourModel.setRowCount(0);
-		Hour mostUsedHourInLastMonth = mainController.reportsHandler.getMostUsedHourInLastMonth();
-		Hour leastUsedHourInLastMonth = mainController.reportsHandler.getLeastUsedHourInLastMonth();
-		Hour lastMonth = mainController.reportsHandler.getLastMonth();
+		ParkingTime mostUsedHourInLastMonth = mainController.reportsHandler.getMostUsedHourInLastMonth();
+		ParkingTime leastUsedHourInLastMonth = mainController.reportsHandler.getLeastUsedHourInLastMonth();
+		ParkingTime lastMonth = mainController.reportsHandler.getLastMonth();
 		lastMonth1Lbl.setText("Last month: " + new DateFormatSymbols().getMonths()[lastMonth.getMonth() - 1] + " " + lastMonth.getYear());
 		if (!mostUsedHourInLastMonth.equals(null)) {
 			mostLeastUsedHourModel.addRow(new Object[] { "Most used hour", String.valueOf(mostUsedHourInLastMonth.getDay()),
@@ -379,13 +379,13 @@ public class ReportsUI {
 
 	private boolean populateDailyOccupancyReport() {
 		// Populate daily occupancy report of last month
-		List<Hour> dailyOccupancyList = mainController.reportsHandler.getDailyOccupancyForLastMonth();
-		Hour lastMonth = mainController.reportsHandler.getLastMonth();
+		List<ParkingTime> dailyOccupancyList = mainController.reportsHandler.getDailyOccupancyForLastMonth();
+		ParkingTime lastMonth = mainController.reportsHandler.getLastMonth();
 		lastMonth3Lbl.setText("Last month: " + new DateFormatSymbols().getMonths()[lastMonth.getMonth() - 1] + " " + lastMonth.getYear());
 
 		dailyOccupancyReportModel.setRowCount(0);
 		if (!dailyOccupancyList.equals(null)) {
-			for (Hour day : dailyOccupancyList) {
+			for (ParkingTime day : dailyOccupancyList) {
 				dailyOccupancyReportModel.addRow(new Object[] { String.valueOf(day.getDay()), String.valueOf(day.getTicketCount()) });
 			}
 		} else {
@@ -399,8 +399,8 @@ public class ReportsUI {
 	public boolean populateMaxRevenueDayReport() {
 		// Maximum revenue day in last month report
 		maxRevenueModel.setRowCount(0);
-		Hour maxRevenueDayInLastMonth = mainController.reportsHandler.getMaxRevenueDayInLastMonth();
-		Hour lastMonth = mainController.reportsHandler.getLastMonth();
+		ParkingTime maxRevenueDayInLastMonth = mainController.reportsHandler.getMaxRevenueDayInLastMonth();
+		ParkingTime lastMonth = mainController.reportsHandler.getLastMonth();
 		lastMonth2Lbl.setText("Last month: " + new DateFormatSymbols().getMonths()[lastMonth.getMonth() - 1] + " " + lastMonth.getYear());
 		if (!maxRevenueDayInLastMonth.equals(null)) {
 			maxRevenueModel.addRow(new Object[] { maxRevenueDayInLastMonth.getDay(), maxRevenueDayInLastMonth.getPayment() });
@@ -414,18 +414,18 @@ public class ReportsUI {
 		// TODO Auto-generated method stub
 		boolean isValidDay = mainController.paymentHandler.isValidDayMonthYearInPast(dayMonthYearStr);
 		if (isValidDay) {
-			Hour dayMonthYear = new Hour();
+			ParkingTime dayMonthYear = new ParkingTime();
 			dayMonthYear.setMonth(Integer.parseInt(dayMonthYearStr.substring(0, 2)));
 			dayMonthYear.setDay(Integer.parseInt(dayMonthYearStr.substring(3, 5)));
 			dayMonthYear.setYear(Integer.parseInt(dayMonthYearStr.substring(6)));
-			List<Hour> hourlyRevenueList = mainController.reportsHandler.getHourlyRevenueForDayMonthYear(dayMonthYear);
+			List<ParkingTime> hourlyRevenueList = mainController.reportsHandler.getHourlyRevenueForDayMonthYear(dayMonthYear);
 
 			hourlyRevenueReportModel.setRowCount(0);
 			hourlyRevenueReportDayLbl.setText("Hourly Revenue for: " + dayMonthYear.getDay() + " "
 					+ new DateFormatSymbols().getMonths()[dayMonthYear.getMonth() - 1] + " " + dayMonthYear.getYear());
 
 			if (!hourlyRevenueList.equals(null)) {
-				for (Hour hour : hourlyRevenueList) {
+				for (ParkingTime hour : hourlyRevenueList) {
 					hourlyRevenueReportModel.addRow(new Object[] { String.valueOf(hour.getHour()), String.valueOf(hour.getPayment()) });
 				}
 			} else {
@@ -441,17 +441,17 @@ public class ReportsUI {
 		// TODO Auto-generated method stub
 		boolean isValidMonth = mainController.paymentHandler.isValidMonthYearInPast(monthYearStr);
 		if (isValidMonth) {
-			Hour monthYear = new Hour();
+			ParkingTime monthYear = new ParkingTime();
 			monthYear.setMonth(Integer.parseInt(monthYearStr.substring(0, 2)));
 			monthYear.setYear(Integer.parseInt(monthYearStr.substring(3)));
-			List<Hour> dailyRevenueList = mainController.reportsHandler.getDailyRevenueForMonthYear(monthYear);
+			List<ParkingTime> dailyRevenueList = mainController.reportsHandler.getDailyRevenueForMonthYear(monthYear);
 
 			dailyRevenueReportModel.setRowCount(0);
 			dailyRevenueReportMonthLbl.setText("Daily Revenue for: " + new DateFormatSymbols().getMonths()[monthYear.getMonth() - 1] + " "
 					+ monthYear.getYear());
 
 			if (!dailyRevenueList.equals(null)) {
-				for (Hour day : dailyRevenueList) {
+				for (ParkingTime day : dailyRevenueList) {
 					dailyRevenueReportModel.addRow(new Object[] { String.valueOf(day.getDay()), String.valueOf(day.getPayment()) });
 				}
 			} else {
@@ -467,15 +467,15 @@ public class ReportsUI {
 		// TODO Auto-generated method stub
 		boolean isValidYear = mainController.paymentHandler.isValidYearInPast(yearStr);
 		if (isValidYear) {
-			Hour year = new Hour();
+			ParkingTime year = new ParkingTime();
 			year.setYear(Integer.parseInt(yearStr));
-			List<Hour> monthlyRevenueList = mainController.reportsHandler.getMonthlyRevenueForYear(year);
+			List<ParkingTime> monthlyRevenueList = mainController.reportsHandler.getMonthlyRevenueForYear(year);
 
 			monthlyRevenueReportModel.setRowCount(0);
 			monthlyRevenueReportYearLbl.setText("Monthly Revenue for: " + year.getYear());
 
 			if (!monthlyRevenueList.equals(null)) {
-				for (Hour month : monthlyRevenueList) {
+				for (ParkingTime month : monthlyRevenueList) {
 					monthlyRevenueReportModel.addRow(new Object[] { String.valueOf(month.getMonth()), String.valueOf(month.getPayment()) });
 				}
 			} else {
