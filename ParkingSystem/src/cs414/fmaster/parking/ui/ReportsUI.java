@@ -8,7 +8,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 
 import cs414.fmaster.parking.controller.ParkingTime;
 import cs414.fmaster.parking.controller.MainController;
-import cs414.fmaster.parking.controller.ParkingRate;
 
 /**
  * @author MasterF
