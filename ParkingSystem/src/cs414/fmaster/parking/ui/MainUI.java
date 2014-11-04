@@ -69,7 +69,7 @@ public class MainUI extends JFrame {
 	}
 
 	private void setupMainUI() {
-		setSize(500, 500);
+		setSize(500, 700);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(mainPnl);

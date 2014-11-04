@@ -163,7 +163,7 @@ public class ReportsHandler {
 	private void setHourlyStatsOfMonth(List<ParkingTime> hoursInSelectedMonth) {
 		for (ParkingTime hour : hoursInSelectedMonth) {
 			db.setParkingAvailabilityInHourInParkingTime(hour);
-			db.setParkingAvailabilityInHourInParkingTime(hour);
+			db.setParkingSizeInHourInParkingTime(hour);
 			int size = hour.getParkingSize();
 			int availability = hour.getAvailability();
 			int occupancy = size - availability;
