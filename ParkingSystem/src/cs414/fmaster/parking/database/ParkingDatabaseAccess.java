@@ -94,12 +94,12 @@ public class ParkingDatabaseAccess extends DatabaseAccess {
 
 	// Method to initialize database tables
 	private void initializeParkingDatabase() {
-		// int initialSize = 5;
+		int initialSize = 5;
 		createParkingSize();
-		// insertParkingSize(initialSize);
+		insertParkingSize(initialSize);
 
 		createParkingAvailability();
-		// insertParkingAvailability(initialSize);
+		insertParkingAvailability(initialSize);
 
 		createParkingRates();
 		insertParkingRate(0.5, 20.5);
