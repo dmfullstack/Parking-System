@@ -410,7 +410,7 @@ public class ReportsUI {
 
 	private boolean populateHourlyRevenueReport(String dayMonthYearStr) {
 		// Hourly Revenue Report
-		boolean isValidDay = mainController.paymentHandler.isValidDayMonthYearInPast(dayMonthYearStr);
+		boolean isValidDay = mainController.paymentHandler.isValidDayMonthYearNotInFuture(dayMonthYearStr);
 		if (isValidDay) {
 			ParkingTime dayMonthYear = new ParkingTime();
 			dayMonthYear.setMonth(Integer.parseInt(dayMonthYearStr.substring(0, 2)));
@@ -437,7 +437,7 @@ public class ReportsUI {
 
 	private boolean populateDailyRevenueReport(String monthYearStr) {
 		// Populate Daily Revenue Report
-		boolean isValidMonth = mainController.paymentHandler.isValidMonthYearInPast(monthYearStr);
+		boolean isValidMonth = mainController.paymentHandler.isValidMonthYearInNotInFuture(monthYearStr);
 		if (isValidMonth) {
 			ParkingTime monthYear = new ParkingTime();
 			monthYear.setMonth(Integer.parseInt(monthYearStr.substring(0, 2)));
@@ -463,7 +463,7 @@ public class ReportsUI {
 
 	private boolean populateMonthlyRevenueReport(String yearStr) {
 		// Populate Monthly Revenue Report
-		boolean isValidYear = mainController.paymentHandler.isValidYearInPast(yearStr);
+		boolean isValidYear = mainController.paymentHandler.isValidYearInNotInFuture(yearStr);
 		if (isValidYear) {
 			ParkingTime year = new ParkingTime();
 			year.setYear(Integer.parseInt(yearStr));
