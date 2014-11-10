@@ -114,7 +114,7 @@ public class PaymentHandler {
 		return isValidMonthYearStrInFuture;
 	}
 
-	public boolean isValidYearInPast(String yearStr) {
+	public boolean isValidYearInNotInFuture(String yearStr) {
 		int year = Integer.parseInt(yearStr);
 		
 		Calendar enteredYear = new GregorianCalendar();
@@ -131,30 +131,12 @@ public class PaymentHandler {
 		thisYear.set(Calendar.HOUR_OF_DAY, 0);
 		thisYear.set(Calendar.MINUTE, 0);
 		thisYear.set(Calendar.SECOND, 0);
-		return enteredYear.before(thisYear);
+		return !enteredYear.after(thisYear);
 	}
 
-	public boolean isValidMonthYearInPast(String monthYear) {
-		StringTokenizer st = new StringTokenizer(monthYear, "-");
-		int month = Integer.parseInt(st.nextToken());
-		if (month > 12 || month < 1) {
-			return false;
-		}
-		int year = Integer.parseInt(st.nextToken());
-		Calendar enteredMonthYear = new GregorianCalendar();
-		enteredMonthYear.set(Calendar.YEAR, year);
-		enteredMonthYear.set(Calendar.MONTH, month - 1);
-		enteredMonthYear.set(Calendar.DATE, 1);
-		enteredMonthYear.set(Calendar.HOUR_OF_DAY, 0);
-		enteredMonthYear.set(Calendar.MINUTE, 0);
-		enteredMonthYear.set(Calendar.SECOND, 0);
-
-		Calendar thisMonth = new GregorianCalendar();
-		thisMonth.set(Calendar.DATE, 1);
-		thisMonth.set(Calendar.HOUR_OF_DAY, 0);
-		thisMonth.set(Calendar.MINUTE, 0);
-		thisMonth.set(Calendar.SECOND, 0);
-		return enteredMonthYear.before(thisMonth);
+	public boolean isValidMonthYearInNotInFuture(String monthYear) {
+		boolean inFuture = isValidMonthYearInFuture(monthYear);
+		return !inFuture;
 	}
 
 	public boolean isValidMonthYearInFuture(String monthYear) {
@@ -180,7 +162,7 @@ public class PaymentHandler {
 		return enterMonthYear.after(thisMonth);
 	}
 
-	public boolean isValidDayMonthYearInPast(String dayMonthYearStr) {
+	public boolean isValidDayMonthYearNotInFuture(String dayMonthYearStr) {
 		StringTokenizer st = new StringTokenizer(dayMonthYearStr, "-");
 		int month = Integer.parseInt(st.nextToken());
 		if (month > 12 || month < 1) {
@@ -212,6 +194,6 @@ public class PaymentHandler {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		today.set(Calendar.MINUTE, 0);
 		today.set(Calendar.SECOND, 0);
-		return enteredDayMonthYear.before(today);
+		return !enteredDayMonthYear.after(today);
 	}
 }
