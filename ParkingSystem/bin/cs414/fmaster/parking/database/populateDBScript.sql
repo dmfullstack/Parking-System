@@ -1,3 +1,5 @@
+delete from parking_size_history;
+delete from parking_availability_history;
 insert into parking_size_history values (10, '2014-08-01 01:00:00', '2014-09-03 01:00:00');
 insert into parking_size_history values (5, '2014-09-03 01:00:00', '2014-09-20 02:00:00');
 insert into parking_size_history values (2, '2014-09-20 02:00:00', '2014-09-25 02:00:00');
