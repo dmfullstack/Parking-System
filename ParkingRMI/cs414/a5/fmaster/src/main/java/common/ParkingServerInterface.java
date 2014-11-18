@@ -2,15 +2,13 @@ package a5.fmaster.src.main.java.common;
 
 import java.util.List;
 
-import a5.fmaster.src.main.java.client.ParkingClientInterface;
+import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 import a5.fmaster.src.main.java.server.domain.ReportUnit;
 
 public interface ParkingServerInterface extends java.rmi.Remote {
-	public void registerForCallback(ParkingClientInterface client) throws java.rmi.RemoteException;
-	
-	public void unregisterForCallback(ParkingClientInterface client) throws java.rmi.RemoteException;
-	
+	public void addObserver(RemoteObserver observer) throws java.rmi.RemoteException;
+		
 	public int getCurrentAvailability() throws java.rmi.RemoteException;
 
 	public int getCurrentParkingSize() throws java.rmi.RemoteException;

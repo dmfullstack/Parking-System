@@ -10,7 +10,7 @@ public class ParkingServer {
 		try {
 			Registry registry = LocateRegistry.createRegistry(port);
 			ParkingServerInterface parking = new ParkingServerImpl();
-			UnicastRemoteObject.unexportObject(parking, true);
+			//UnicastRemoteObject.unexportObject(parking, true);
 			registry.rebind("ParkingService", UnicastRemoteObject.exportObject(parking, port));
 			System.out.println("ParkingService running...");
 		} catch (Exception e) {

@@ -1,4 +1,4 @@
-package a5.fmaster.src.main.java.client.ui;
+package a5.fmaster.src.main.java.client.ui.admin;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,19 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import a5.fmaster.src.main.java.client.ui.ViewRatesUIInterface;
+import a5.fmaster.src.main.java.client.ui.enterparking.EnterParkingUI;
+import a5.fmaster.src.main.java.client.ui.exitparking.ExitParkingUI;
 import a5.fmaster.src.main.java.common.ParkingServerInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
-// run the program using
-// java ParkingClient <host> <port>
-// where the host and port refer to the rmiregistry's host and port
-
-public class MainUI extends JFrame {
-	private static final long serialVersionUID = 1L;
+public class AdminMainUI extends JFrame {
 	private ParkingServerInterface parking;
-	private EnterParkingUI enterParkingUI;
-	private ExitParkingUI exitParkingUI;
-	private ViewRatesUI viewRatesUI;
+	public AdminViewRatesUI viewRatesUI;
 	private LoginUI loginUI;
 	public AdminUI adminUI;
 	public ConfigRatesUI configRatesUI;
@@ -41,16 +37,14 @@ public class MainUI extends JFrame {
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JLabel messageLbl = new JLabel("");
 
-	public MainUI(ParkingServerInterface parking) throws RemoteException {
+	public AdminMainUI(ParkingServerInterface parking) throws RemoteException {
 		this.parking = parking;
-		intitializeChildUI();
-		setupUI();
+		initializeChildUI();
+		setupChildUI();
 	}
 
-	private void intitializeChildUI() {
-		enterParkingUI = EnterParkingUI.getInstance(this, parking);
-		exitParkingUI = ExitParkingUI.getInstance(this, parking);
-		viewRatesUI = ViewRatesUI.getInstance(this, parking);
+	private void initializeChildUI() {
+		viewRatesUI = AdminViewRatesUI.getInstance(this, parking);
 		loginUI = LoginUI.getInstance(this, parking);
 		adminUI = AdminUI.getInstance(this, parking);
 		configRatesUI = ConfigRatesUI.getInstance(this, parking);
@@ -59,10 +53,8 @@ public class MainUI extends JFrame {
 
 	}
 
-	private void setupUI() throws RemoteException {
+	private void setupChildUI() throws RemoteException {
 		setupMainUI();
-		enterParkingUI.setupUI();
-		exitParkingUI.setupUI();
 		viewRatesUI.setupUI();
 		loginUI.setupUI();
 		adminUI.setupUI();
@@ -85,24 +77,18 @@ public class MainUI extends JFrame {
 		addGridBagComponent(mainContentPnl, topRightPnl, GridBagConstraints.BOTH, 1, 0);
 
 		// Left Panel with buttons
-		JButton enterParkingBtn = new JButton("Enter Parking");
-		JButton exitParkingBtn = new JButton("Exit Parking");
 		JButton viewRatesBtn = new JButton("View Parking Rates");
 		JButton loginBtn = new JButton("Login");
-		topLeftPnl.setLayout(new GridLayout(4, 1));
-		topLeftPnl.add(enterParkingBtn);
-		topLeftPnl.add(exitParkingBtn);
+		topLeftPnl.setLayout(new GridLayout(2, 1));
 		topLeftPnl.add(viewRatesBtn);
 		topLeftPnl.add(loginBtn);
 
-		enterParkingBtn.addActionListener(new MainUIListener());
-		exitParkingBtn.addActionListener(new MainUIListener());
 		viewRatesBtn.addActionListener(new MainUIListener());
 		loginBtn.addActionListener(new MainUIListener());
 
 		// Right Panel with Image
 		ImageIcon mainImageIcon = null;
-		java.net.URL imgURL = MainUI.class.getResource("resources/mainImage.jpg");
+		java.net.URL imgURL = AdminMainUI.class.getResource("../resources/mainImage.jpg");
 		if (imgURL != null) {
 			mainImageIcon = new ImageIcon(imgURL);
 		} else {
@@ -178,47 +164,11 @@ public class MainUI extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals("Enter Parking")) {
-				enterParking();
-			}
-			if (e.getActionCommand().equals("Exit Parking")) {
-				exitParking();
-			}
 			if (e.getActionCommand().equals("View Parking Rates")) {
 				viewParkingRates();
 			}
 			if (e.getActionCommand().equals("Login")) {
 				login();
-			}
-		}
-
-		private void exitParking() {
-			boolean isParkingEmpty;
-			try {
-				isParkingEmpty = parking.isParkingEmpty();
-				if (isParkingEmpty) {
-					displayMessage("No cars present in parking.");
-				} else {
-					showHideContentPanel(exitParkingUI.mainContentPnl, mainContentPnl);
-					populateParkingRatesInTable(exitParkingUI.parkingRatesTbl);
-				}
-			} catch (RemoteException e1) {
-				e1.printStackTrace();
-			}
-		}
-
-		private void enterParking() {
-			boolean isParkingAvailable;
-			try {
-				isParkingAvailable = parking.isParkingAvailable();
-				if (isParkingAvailable) {
-					showHideContentPanel(enterParkingUI.mainContentPnl, mainContentPnl);
-					populateParkingRatesInTable(enterParkingUI.parkingRatesTbl);
-				} else {
-					displayMessage("Sorry. No parking spot available.");
-				}
-			} catch (RemoteException e1) {
-				e1.printStackTrace();
 			}
 		}
 

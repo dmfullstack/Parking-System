@@ -1,12 +1,16 @@
 package a5.fmaster.src.main.java.server;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
-import a5.fmaster.src.main.java.client.ParkingClientInterface;
+import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.common.ParkingServerInterface;
 import a5.fmaster.src.main.java.database.ParkingDatabaseAccess;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
@@ -16,9 +20,30 @@ import a5.fmaster.src.main.java.server.handler.ParkingOperationsHandler;
 import a5.fmaster.src.main.java.server.handler.PaymentHandler;
 import a5.fmaster.src.main.java.server.handler.ReportsHandler;
 
-public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject implements ParkingServerInterface {
+public class ParkingServerImpl extends Observable implements ParkingServerInterface {
 	// Implementations must have an explicit constructor
 	// in order to declare the RemoteException exception
+	private class WrappedObserver implements Observer, Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		private RemoteObserver ro = null;
+
+		public WrappedObserver(RemoteObserver ro) {
+			this.ro = ro;
+		}
+
+		@Override
+		public void update(Observable o, Object arg) {
+			try {
+				ro.update(o.toString(), arg);
+			} catch (RemoteException e) {
+				System.out.println("Remote exception removing observer: " + this);
+				o.deleteObserver(this);
+			}
+		}
+
+	}
 
 	private static final long serialVersionUID = 1L;
 	private ParkingDatabaseAccess db;
@@ -47,35 +72,12 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 		reportsHandler = ReportsHandler.getInstance(db);
 	}
 
-	public synchronized void registerForCallback(ParkingClientInterface client) throws RemoteException {
-		if (!(clientList.contains(client))) {
-			clientList.addElement(client);
-			System.out.println("Registered new client: " + client);
-			doCallbacks();
-		}
-	}
-
-	public synchronized void unregisterForCallback(ParkingClientInterface client) throws RemoteException {
-		if (clientList.removeElement(client)) {
-			System.out.println("Unregistered client.");
-		} else {
-			System.out.println("Unregister: Client wasn't registered.");
-		}
-	}
-
-	private synchronized void doCallbacks() throws java.rmi.RemoteException {
-		for (int i = 0; i < clientList.size(); i++) {
-			ParkingClientInterface nextClient = (ParkingClientInterface) clientList.elementAt(i);
-			// invoke the callback method
-			try {
-				nextClient.updateMainMessage();
-			} catch (RemoteException re) {
-				System.out.println("Exception calling back to client, removing it.");
-				System.out.println(re);
-				unregisterForCallback(nextClient);
-			}
-		}
-	}
+	@Override
+	public void addObserver(RemoteObserver o) throws RemoteException {
+		WrappedObserver mo = new WrappedObserver(o);
+		addObserver(mo);
+		System.out.println("Added observer:" + mo);
+	}	
 
 	@Override
 	public int getCurrentAvailability() throws RemoteException {
@@ -104,18 +106,15 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 
 	@Override
 	public int getTicket() {
-		int ticketNumber = parkingOpsHandler.getTicket();
-		try {
-			doCallbacks();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		return ticketNumber;
+		return parkingOpsHandler.getTicket();
 	}
 
 	@Override
 	public void openEntryGate() {
 		parkingOpsHandler.openEntryGate();
+		//Update for availability
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
@@ -131,6 +130,9 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 	@Override
 	public void submitTicket(int ticketNumber) {
 		paymentHandler.submitTicket(ticketNumber);
+		//Update for occupancy reports
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
@@ -146,11 +148,17 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 	@Override
 	public void enterPayment(int ticketNumber, double amount) {
 		paymentHandler.enterPayment(ticketNumber, amount);
+		//Update for revenue reports
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
 	public void openExitGate() {
 		parkingOpsHandler.openExitGate();
+		//Update for availability
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
@@ -201,11 +209,17 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 	@Override
 	public void updateParkingSize(int newSize) throws RemoteException {
 		parkingOpsHandler.updateParkingSize(newSize);
+		//Update for parking size
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
 	public void updateParkingRates(List<ParkingRate> parkingRates) throws RemoteException {
 		parkingOpsHandler.updateParkingRates(parkingRates);
+		//Update for parking rates
+		setChanged();
+		notifyObservers(new Date());
 	}
 
 	@Override
@@ -287,5 +301,4 @@ public class ParkingServerImpl extends java.rmi.server.UnicastRemoteObject imple
 	public List<ReportUnit> getMonthlyRevenueForYear(ReportUnit year) throws RemoteException {
 		return reportsHandler.getMonthlyRevenueForYear(year);
 	}
-
 }

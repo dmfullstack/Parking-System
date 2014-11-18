@@ -87,6 +87,14 @@ public class PaymentHandler {
 		double totalPaymentsMade = db.getPaymentForTicket(ticketNumber);
 		if (totalPaymentsMade == totalCharge) {
 			db.setTicketAsPaid(ticketNumber);
+			increaseParkingAvailability();
+		}
+	}
+
+	private void increaseParkingAvailability() {
+		int currentSize = db.getCurrentParkingSize();
+		int currentAvailability = db.getCurrentParkingAvailability();
+		if (currentAvailability < currentSize) {
 			db.increaseParkingAvailability();
 		}
 	}
@@ -95,7 +103,7 @@ public class PaymentHandler {
 		double totalCharge = getMaximumPayment();
 		totalAmountPaidWithoutTicket = totalAmountPaidWithoutTicket + amountPaidNow;
 		if (totalAmountPaidWithoutTicket == totalCharge) {
-			db.increaseParkingAvailability();
+			increaseParkingAvailability();
 			totalAmountPaidWithoutTicket = 0;
 		}
 	}
@@ -107,7 +115,7 @@ public class PaymentHandler {
 
 	public void enterPaymentException(String name, String license, double amountDue) {
 		db.insertPaymentException(name, license, amountDue);
-		db.increaseParkingAvailability();
+		increaseParkingAvailability();
 	}
 
 	public boolean validateCreditPayment(String name, String address, String creditCard, String securityCode, String expDate) {
