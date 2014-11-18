@@ -21,7 +21,7 @@ public class ExitParkingClient {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						RemoteObserver client = new ExitParkingClientImpl(psi);
+						RemoteObserver client = new ExitParkingObserverImpl(psi);
 						psi.addObserver(client);
 					} catch (RemoteException e) {
 						e.printStackTrace();

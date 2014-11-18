@@ -21,7 +21,7 @@ public class AdminParkingClient {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						RemoteObserver client = new AdminParkingClientImpl(psi);
+						RemoteObserver client = new AdminParkingObserverImpl(psi);
 						psi.addObserver(client);
 					} catch (RemoteException e) {
 						e.printStackTrace();

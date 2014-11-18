@@ -20,7 +20,7 @@ public class EnterParkingClient {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						RemoteObserver client = new EnterParkingClientImpl(psi);
+						RemoteObserver client = new EnterParkingObserverImpl(psi);
 						psi.addObserver(client);
 					} catch (RemoteException e) {
 						e.printStackTrace();

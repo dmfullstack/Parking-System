@@ -18,19 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.client.ui.MainUIInterface;
+import a5.fmaster.src.main.java.client.ui.MainUI;
 import a5.fmaster.src.main.java.client.ui.ViewRatesUIInterface;
 import a5.fmaster.src.main.java.common.ParkingServerInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
-public class EnterParkingMainUI extends JFrame implements MainUIInterface {
-	private ParkingServerInterface parking;
+public class EnterParkingMainUI extends MainUI {
+	
 	public EnterParkingUI enterParkingUI;
 	public EnterParkingViewRatesUI viewRatesUI;
-
-	public JPanel mainPnl = new JPanel(new GridBagLayout());
-	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
-	private JLabel messageLbl = new JLabel("");
 
 	public EnterParkingMainUI(ParkingServerInterface parking) throws RemoteException {
 		this.parking = parking;
@@ -93,55 +89,6 @@ public class EnterParkingMainUI extends JFrame implements MainUIInterface {
 		// Main Panel
 		addGridBagComponent(mainPnl, mainContentPnl, GridBagConstraints.BOTH, 0, 0);
 		addGridBagComponent(mainPnl, messagePnl, GridBagConstraints.BOTH, 0, 1);
-	}
-
-	public void addGridBagComponent(JPanel parent, JComponent child, int gridBagFill, int gridx, int gridy) {
-		GridBagConstraints localgbc = new GridBagConstraints();
-		localgbc.fill = gridBagFill;
-		localgbc.gridx = gridx;
-		localgbc.gridy = gridy;
-		parent.add(child, localgbc);
-	}
-
-	public void addGridBagComponent(JPanel parent, JComponent child, int gridBagFill, int gridx, int gridy, int gridWidth, int gridHeight) {
-		GridBagConstraints localgbc = new GridBagConstraints();
-		localgbc.fill = gridBagFill;
-		localgbc.gridx = gridx;
-		localgbc.gridy = gridy;
-		localgbc.gridwidth = gridWidth;
-		localgbc.gridheight = gridHeight;
-		parent.add(child, localgbc);
-	}
-
-	public void showHideContentPanel(JPanel pnlToShow, JPanel pnlToHide) {
-		pnlToHide.setVisible(false);
-		pnlToShow.setVisible(true);
-		if(pnlToShow.equals(mainContentPnl)) {
-			messageLbl.setVisible(true);
-		}
-		else {
-			messageLbl.setVisible(false);
-		}
-	}
-
-	public void updateWelcomeMessage() throws RemoteException {
-		int availableParking = parking.getCurrentAvailability();
-		int parkingSize = parking.getCurrentParkingSize();
-		displayMessage("Welcome to My Parking!! " + availableParking + " out of " + parkingSize + " parking spots available.");
-	}
-
-	public void displayMessage(String message) {
-		messageLbl.setText(message);
-	}
-
-	public void populateParkingRatesInTable(JTable parkingRatesTbl) throws RemoteException {
-		DefaultTableModel model = (DefaultTableModel) parkingRatesTbl.getModel();
-		model.setRowCount(0);
-		List<ParkingRate> parkingRatesList = new ArrayList<ParkingRate>();
-		parkingRatesList = parking.getParkingRates();
-		for (ParkingRate pr : parkingRatesList) {
-			model.addRow(new Object[] { String.valueOf(pr.getHours()), String.valueOf(pr.getRate()) });
-		}
 	}
 
 	private class MainUIListener implements ActionListener {
