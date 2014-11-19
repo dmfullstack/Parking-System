@@ -21,7 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -29,7 +29,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
  */
 public class ExitParkingUI {
 	private ExitParkingMainUI exitParkingMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JPanel parkingRatesPnl = new JPanel(new GridBagLayout());
 	public JTable parkingRatesTbl = new JTable();
@@ -55,12 +55,12 @@ public class ExitParkingUI {
 
 	private static ExitParkingUI instance = null;
 
-	private ExitParkingUI(ExitParkingMainUI exitParkingMainUI, ParkingServerInterface parking) {
+	private ExitParkingUI(ExitParkingMainUI exitParkingMainUI, ParkingInterface parking) {
 		this.exitParkingMainUI = exitParkingMainUI;
 		this.parking = parking;
 	}
 
-	public static ExitParkingUI getInstance(ExitParkingMainUI exitParkingMainUI, ParkingServerInterface parking) {
+	public static ExitParkingUI getInstance(ExitParkingMainUI exitParkingMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new ExitParkingUI(exitParkingMainUI, parking);
 		}
@@ -238,8 +238,9 @@ public class ExitParkingUI {
 			try {
 				if (name.matches("[a-zA-Z]{1,20}") && license.matches("[a-zA-Z0-9]{1,20}")) {
 					parking.enterPaymentException(name, license, amountDue);
-					JOptionPane.showMessageDialog(exitParkingMainUI, "Payment exception created for " + name + "\nLicense: " + license + "\nAmount: "
-							+ amountDue, "Payment Exception", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(exitParkingMainUI, "Payment exception created for " + name + ".\nLicense: " + license
+							+ "\nAmount: " + amountDue + "\nYou will be contacted soon for payments due.", "Payment Exception",
+							JOptionPane.WARNING_MESSAGE);
 
 					parking.openExitGate();
 					JOptionPane.showMessageDialog(exitParkingMainUI, "Exit Gate Opened. Click OK to close it.", "Exit Gate opened.",
@@ -247,7 +248,8 @@ public class ExitParkingUI {
 					parking.closeExitGate();
 					goBack();
 				} else {
-					JOptionPane.showMessageDialog(exitParkingMainUI, "Enter valid details.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(exitParkingMainUI, "Only 1-20 alphabets or numbers allowed for name and license number.", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -274,7 +276,8 @@ public class ExitParkingUI {
 					boolean paymentAuthorized = parking.validateCreditPayment(name, address, creditCard, securityCode, expDate);
 					if (paymentAuthorized) {
 						parking.enterPayment(ticketNumber, amountDue);
-						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment received in full", "Payment Received", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment received in full", "Payment Received",
+								JOptionPane.INFORMATION_MESSAGE);
 						amountDue = 0;
 						paymentDueLbl.setText("Amount Due: " + amountDue);
 
@@ -284,10 +287,14 @@ public class ExitParkingUI {
 						parking.closeExitGate();
 						goBack();
 					} else {
-						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment not authorized. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment not authorized. Please try again.", "Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(exitParkingMainUI, "Enter valid credit card details.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane
+							.showMessageDialog(exitParkingMainUI, "Enter valid credit card details:" + "\nAlphabets allowed for name."
+									+ "\nCredit card number must be 16 digits." + "\nSecurity Code must be 3 digits.", "Error",
+									JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -308,7 +315,8 @@ public class ExitParkingUI {
 					}
 					if (cashAmount == amountDue) {
 						parking.enterPayment(ticketNumber, amountDue);
-						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment received in full", "Payment Received", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment received in full.", "Payment Received",
+								JOptionPane.INFORMATION_MESSAGE);
 						amountDue = 0;
 					}
 					if (cashAmount < amountDue) {
@@ -368,10 +376,10 @@ public class ExitParkingUI {
 						paymentPnl.setVisible(true);
 						backBtn.setVisible(false);
 					} else {
-						JOptionPane.showMessageDialog(exitParkingMainUI, "Invalid ticket number.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(exitParkingMainUI, "Invalid ticket number. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(exitParkingMainUI, "Enter six digit ticket number.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(exitParkingMainUI, "Ticket number must be six digits.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

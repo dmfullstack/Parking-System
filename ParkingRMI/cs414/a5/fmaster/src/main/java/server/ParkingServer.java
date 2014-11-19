@@ -1,6 +1,6 @@
 package a5.fmaster.src.main.java.server;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -9,7 +9,7 @@ public class ParkingServer {
 	public ParkingServer(int port) {
 		try {
 			Registry registry = LocateRegistry.createRegistry(port);
-			ParkingServerInterface parking = new ParkingServerImpl();
+			ParkingInterface parking = new ParkingServerImpl();
 			//UnicastRemoteObject.unexportObject(parking, true);
 			registry.rebind("ParkingService", UnicastRemoteObject.exportObject(parking, port));
 			System.out.println("ParkingService running...");

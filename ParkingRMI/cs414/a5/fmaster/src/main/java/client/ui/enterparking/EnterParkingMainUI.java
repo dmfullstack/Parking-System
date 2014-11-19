@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import a5.fmaster.src.main.java.client.ui.MainUI;
 import a5.fmaster.src.main.java.client.ui.ViewRatesUIInterface;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 public class EnterParkingMainUI extends MainUI {
@@ -28,7 +28,7 @@ public class EnterParkingMainUI extends MainUI {
 	public EnterParkingUI enterParkingUI;
 	public EnterParkingViewRatesUI viewRatesUI;
 
-	public EnterParkingMainUI(ParkingServerInterface parking) throws RemoteException {
+	public EnterParkingMainUI(ParkingInterface parking) throws RemoteException {
 		this.parking = parking;
 		initializeChildUI();
 		setupChildUI();

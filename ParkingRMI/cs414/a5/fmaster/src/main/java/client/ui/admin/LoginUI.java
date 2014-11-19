@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -23,7 +23,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
  */
 public class LoginUI {
 	private AdminMainUI adminMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JPanel loginPnl = new JPanel(new GridBagLayout());
 	private JPanel securityPnl = new JPanel(new GridBagLayout());
@@ -38,12 +38,12 @@ public class LoginUI {
 
 	private static LoginUI instance = null;
 
-	private LoginUI(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	private LoginUI(AdminMainUI adminMainUI, ParkingInterface parking) {
 		this.adminMainUI = adminMainUI;
 		this.parking = parking;
 	}
 
-	public static LoginUI getInstance(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	public static LoginUI getInstance(AdminMainUI adminMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new LoginUI(adminMainUI, parking);
 		}
@@ -147,7 +147,7 @@ public class LoginUI {
 				}
 				resetUI();
 			} else {
-				JOptionPane.showMessageDialog(adminMainUI, "Please enter new password in correct format.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(adminMainUI, "Password can be 1-10 alphabets or numbers.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -162,13 +162,13 @@ public class LoginUI {
 						newPwdPnl.setVisible(true);
 						backBtn.setVisible(false);
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Incorrect Answer.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Incorrect Security answer. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			} else {
-				JOptionPane.showMessageDialog(adminMainUI, "Please enter security answer in correct format.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(adminMainUI, "Security answer can be 1-10 alphabets or numbers.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -183,10 +183,10 @@ public class LoginUI {
 						loginPnl.setVisible(false);
 						securityPnl.setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Invalid user.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Username does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(adminMainUI, "Please enter username in correct format.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(adminMainUI, "Username can be 1-10 alphabets or numbers.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e) {
 				e.printStackTrace();
@@ -203,11 +203,11 @@ public class LoginUI {
 						resetUI();
 						adminMainUI.showHideContentPanel(adminMainUI.adminUI.mainContentPnl, mainContentPnl);
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Incorrect username or password.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Incorrect username or password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					JOptionPane
-							.showMessageDialog(adminMainUI, "Please enter username and password in correct format.", "Error", JOptionPane.ERROR_MESSAGE);
+							.showMessageDialog(adminMainUI, "Username and password can be 1-10 alphabets or numbers.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e) {
 				e.printStackTrace();

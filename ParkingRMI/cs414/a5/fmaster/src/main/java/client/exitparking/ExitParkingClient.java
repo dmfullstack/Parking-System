@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import javax.swing.*;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -17,7 +17,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class ExitParkingClient {
 	public static void main(String[] args) {
 		try {
-			final ParkingServerInterface psi = (ParkingServerInterface) Naming.lookup("rmi://" + args[0] + ":" + args[1] + "/ParkingService");
+			final ParkingInterface psi = (ParkingInterface) Naming.lookup("rmi://" + args[0] + ":" + args[1] + "/ParkingService");
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					try {

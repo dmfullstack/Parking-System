@@ -5,7 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.client.ui.enterparking.EnterParkingMainUI;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -14,8 +14,9 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class EnterParkingObserverImpl extends UnicastRemoteObject implements RemoteObserver {
 	EnterParkingMainUI enterParkingMainUI;
 	private static final long serialVersionUID = 1L;
+	String clientType = "ENTER";
 
-	protected EnterParkingObserverImpl(ParkingServerInterface psi) throws RemoteException {
+	protected EnterParkingObserverImpl(ParkingInterface psi) throws RemoteException {
 		super();
 		this.enterParkingMainUI = new EnterParkingMainUI(psi);
 	}
@@ -26,5 +27,10 @@ public class EnterParkingObserverImpl extends UnicastRemoteObject implements Rem
 		enterParkingMainUI.updateWelcomeMessage();
 		enterParkingMainUI.populateParkingRatesInTable(enterParkingMainUI.enterParkingUI.parkingRatesTbl);
 		enterParkingMainUI.populateParkingRatesInTable(enterParkingMainUI.viewRatesUI.parkingRatesTbl);
+	}
+
+	@Override
+	public String getClientType() throws RemoteException {
+		return clientType;
 	}
 }

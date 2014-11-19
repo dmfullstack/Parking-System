@@ -2,9 +2,10 @@ package a5.fmaster.src.main.java.client.admin;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
 import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.client.ui.admin.AdminMainUI;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -13,8 +14,9 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class AdminParkingObserverImpl extends UnicastRemoteObject implements RemoteObserver {
 	AdminMainUI adminMainUI;
 	private static final long serialVersionUID = 1L;
+	String clientType = "ADMIN";
 
-	protected AdminParkingObserverImpl(ParkingServerInterface psi) throws RemoteException {
+	protected AdminParkingObserverImpl(ParkingInterface psi) throws RemoteException {
 		super();
 		this.adminMainUI = new AdminMainUI(psi);
 	}
@@ -34,5 +36,10 @@ public class AdminParkingObserverImpl extends UnicastRemoteObject implements Rem
 		adminMainUI.reportsUI.updateHourlyRevenueReport();
 		adminMainUI.reportsUI.updateDailyRevenueReport();
 		adminMainUI.reportsUI.updateMonthlyRevenueReport();
+	}
+
+	@Override
+	public String getClientType() throws RemoteException {
+		return clientType;
 	}
 }

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -23,7 +23,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
  */
 public class AdminUI {
 	private AdminMainUI adminMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	public JPanel mainContentPnl = new JPanel();
 	private JPanel adminOptionsPnl = new JPanel(new GridBagLayout());
 	private JPanel addAccountPnl = new JPanel(new GridBagLayout());
@@ -42,12 +42,12 @@ public class AdminUI {
 
 	private static AdminUI instance = null;
 
-	private AdminUI(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	private AdminUI(AdminMainUI adminMainUI, ParkingInterface parking) {
 		this.adminMainUI = adminMainUI;
 		this.parking = parking;
 	}
 
-	public static AdminUI getInstance(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	public static AdminUI getInstance(AdminMainUI adminMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new AdminUI(adminMainUI, parking);
 		}
@@ -228,11 +228,11 @@ public class AdminUI {
 				if (disableUsername.matches("[a-zA-Z0-9]{1,10}")) {
 					boolean accountDisabled = parking.disableAccount(disableUsername);
 					if (accountDisabled) {
-						JOptionPane.showMessageDialog(adminMainUI, "Account Disabled.", "Message", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Account successfully disabled.", "Message", JOptionPane.ERROR_MESSAGE);
 						resetUI();
 					} else {
 						JOptionPane
-								.showMessageDialog(adminMainUI, "Cannot disable account or account does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+								.showMessageDialog(adminMainUI, "Account cannot be disabled.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 
 				} else {
@@ -259,13 +259,13 @@ public class AdminUI {
 						&& securityAns.matches("[a-zA-Z0-9]{1,10}")) {
 					boolean isAdminAccountAdded = parking.addAdminAccount(addUsername, password, securityQues, securityAns);
 					if (isAdminAccountAdded) {
-						JOptionPane.showMessageDialog(adminMainUI, "Account added.", "Message", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Account successfully added.", "Message", JOptionPane.INFORMATION_MESSAGE);
 						resetUI();
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Username exists.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(adminMainUI, "Username already exists. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(adminMainUI, "Username, Password and Security Question and Answer can be 1-10 alphabets or numbers.",
+					JOptionPane.showMessageDialog(adminMainUI, "Username, Password, Security Question and Answer can be 1-10 alphabets or numbers.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e1) {

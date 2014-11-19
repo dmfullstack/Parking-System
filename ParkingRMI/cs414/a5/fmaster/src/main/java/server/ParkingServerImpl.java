@@ -11,7 +11,8 @@ import java.util.Observer;
 import java.util.Vector;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.client.admin.AdminParkingObserverImpl;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import a5.fmaster.src.main.java.database.ParkingDatabaseAccess;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 import a5.fmaster.src.main.java.server.domain.ReportUnit;
@@ -20,7 +21,7 @@ import a5.fmaster.src.main.java.server.handler.ParkingOperationsHandler;
 import a5.fmaster.src.main.java.server.handler.PaymentHandler;
 import a5.fmaster.src.main.java.server.handler.ReportsHandler;
 
-public class ParkingServerImpl extends Observable implements ParkingServerInterface {
+public class ParkingServerImpl extends Observable implements ParkingInterface {
 	// Implementations must have an explicit constructor
 	// in order to declare the RemoteException exception
 	private class WrappedObserver implements Observer, Serializable {
@@ -38,8 +39,9 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 			try {
 				ro.update(o.toString(), arg);
 			} catch (RemoteException e) {
-				System.out.println("Remote exception removing observer: " + this);
+				System.out.println("Removing observer: " + this);
 				o.deleteObserver(this);
+				clientList.removeElement(o);
 			}
 		}
 
@@ -77,7 +79,29 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 		WrappedObserver mo = new WrappedObserver(o);
 		addObserver(mo);
 		System.out.println("Added observer:" + mo);
-	}	
+		addClient(o);
+	}
+
+	@Override
+	public void addClient(RemoteObserver o) throws RemoteException {
+		clientList.addElement(o);
+	}
+
+	@Override
+	public boolean isAdminClientStarted() throws RemoteException {
+		for (int i = 0; i < clientList.size(); i++) {
+			RemoteObserver ro = (RemoteObserver) clientList.elementAt(i);
+			try {
+				if (ro.getClientType().equals("ADMIN")) {
+					return true;
+				}
+			} catch (RemoteException re) {
+				System.out.println("Removing client: " + ro);
+				clientList.removeElement(ro);
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public int getCurrentAvailability() throws RemoteException {
@@ -112,7 +136,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void openEntryGate() {
 		parkingOpsHandler.openEntryGate();
-		//Update for availability
+		// Update for availability
 		setChanged();
 		notifyObservers(new Date());
 	}
@@ -130,7 +154,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void submitTicket(int ticketNumber) {
 		paymentHandler.submitTicket(ticketNumber);
-		//Update for occupancy reports
+		// Update for occupancy reports
 		setChanged();
 		notifyObservers(new Date());
 	}
@@ -148,7 +172,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void enterPayment(int ticketNumber, double amount) {
 		paymentHandler.enterPayment(ticketNumber, amount);
-		//Update for revenue reports
+		// Update for revenue reports
 		setChanged();
 		notifyObservers(new Date());
 	}
@@ -156,7 +180,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void openExitGate() {
 		parkingOpsHandler.openExitGate();
-		//Update for availability
+		// Update for availability
 		setChanged();
 		notifyObservers(new Date());
 	}
@@ -209,7 +233,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void updateParkingSize(int newSize) throws RemoteException {
 		parkingOpsHandler.updateParkingSize(newSize);
-		//Update for parking size
+		// Update for parking size
 		setChanged();
 		notifyObservers(new Date());
 	}
@@ -217,7 +241,7 @@ public class ParkingServerImpl extends Observable implements ParkingServerInterf
 	@Override
 	public void updateParkingRates(List<ParkingRate> parkingRates) throws RemoteException {
 		parkingOpsHandler.updateParkingRates(parkingRates);
-		//Update for parking rates
+		// Update for parking rates
 		setChanged();
 		notifyObservers(new Date());
 	}

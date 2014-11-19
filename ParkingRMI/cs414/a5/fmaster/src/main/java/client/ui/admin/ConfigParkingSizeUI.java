@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -24,7 +24,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class ConfigParkingSizeUI {
 
 	private AdminMainUI adminMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	JLabel currentSizeLbl = new JLabel();
 	JLabel currentOccupancyLbl = new JLabel();
@@ -32,12 +32,12 @@ public class ConfigParkingSizeUI {
 
 	private static ConfigParkingSizeUI instance = null;
 
-	private ConfigParkingSizeUI(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	private ConfigParkingSizeUI(AdminMainUI adminMainUI, ParkingInterface parking) {
 		this.adminMainUI = adminMainUI;
 		this.parking = parking;
 	}
 
-	public static ConfigParkingSizeUI getInstance(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	public static ConfigParkingSizeUI getInstance(AdminMainUI adminMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new ConfigParkingSizeUI(adminMainUI, parking);
 		}
@@ -122,26 +122,25 @@ public class ConfigParkingSizeUI {
 					} else {
 						int newSizeInt = Integer.parseInt(newSize);
 						if (newSizeInt < parking.getCurrentParkingOccupancy()) {
-							JOptionPane.showMessageDialog(adminMainUI, "New Parking Size cannot be less than number of occupied slots.", "Error",
+							JOptionPane.showMessageDialog(adminMainUI, "New parking size cannot be less than number of occupied slots.", "Error",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							if (newSizeInt == parking.getCurrentParkingSize()) {
-								JOptionPane.showMessageDialog(adminMainUI, "New Parking Size is same as current parking size.", "Message",
+								JOptionPane.showMessageDialog(adminMainUI, "New parking size is same as current parking size.", "Message",
 										JOptionPane.INFORMATION_MESSAGE);
 							} else {
 								parking.updateParkingSize(newSizeInt);
-								JOptionPane.showMessageDialog(adminMainUI, "Parking Size updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(adminMainUI, "Parking size successfully updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
 							}
 							goBack();
 						}
 					}
 				} else {
-					JOptionPane.showMessageDialog(adminMainUI, "Enter valid new size.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(adminMainUI, "Enter valid size in numbers.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
 		}
 	}
-
 }

@@ -22,7 +22,7 @@ import a5.fmaster.src.main.java.client.ui.MainUI;
 import a5.fmaster.src.main.java.client.ui.ViewRatesUIInterface;
 import a5.fmaster.src.main.java.client.ui.enterparking.EnterParkingUI;
 import a5.fmaster.src.main.java.client.ui.exitparking.ExitParkingUI;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 public class AdminMainUI extends MainUI {
@@ -33,7 +33,7 @@ public class AdminMainUI extends MainUI {
 	public ConfigParkingSizeUI configParkingSizeUI;
 	public ReportsUI reportsUI;
 
-	public AdminMainUI(ParkingServerInterface parking) throws RemoteException {
+	public AdminMainUI(ParkingInterface parking) throws RemoteException {
 		this.parking = parking;
 		initializeChildUI();
 		setupChildUI();

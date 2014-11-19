@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import a5.fmaster.src.main.java.client.ui.ViewRatesUIInterface;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -24,18 +24,18 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
  */
 public class EnterParkingViewRatesUI implements ViewRatesUIInterface {
 	private EnterParkingMainUI enterParkingMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	public JTable parkingRatesTbl = new JTable();
 
 	private static EnterParkingViewRatesUI instance = null;
 
-	private EnterParkingViewRatesUI(EnterParkingMainUI enterParkingMainUI, ParkingServerInterface parking) {
+	private EnterParkingViewRatesUI(EnterParkingMainUI enterParkingMainUI, ParkingInterface parking) {
 		this.enterParkingMainUI = enterParkingMainUI;
 		this.parking = parking;
 	}
 
-	public static EnterParkingViewRatesUI getInstance(EnterParkingMainUI enterParkingMainUI, ParkingServerInterface parking) {
+	public static EnterParkingViewRatesUI getInstance(EnterParkingMainUI enterParkingMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new EnterParkingViewRatesUI(enterParkingMainUI, parking);
 		}

@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 /**
@@ -28,18 +28,18 @@ import a5.fmaster.src.main.java.server.domain.ParkingRate;
 public class ConfigRatesUI {
 
 	private AdminMainUI adminMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	public JTable parkingRatesTbl = new JTable();
 
 	private static ConfigRatesUI instance = null;
 
-	private ConfigRatesUI(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	private ConfigRatesUI(AdminMainUI adminMainUI, ParkingInterface parking) {
 		this.adminMainUI = adminMainUI;
 		this.parking = parking;
 	}
 
-	public static ConfigRatesUI getInstance(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	public static ConfigRatesUI getInstance(AdminMainUI adminMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new ConfigRatesUI(adminMainUI, parking);
 		}
@@ -128,7 +128,7 @@ public class ConfigRatesUI {
 					} else {
 						validRates = false;
 						JOptionPane
-								.showMessageDialog(adminMainUI, "Enter rates in decimal format between 0 and 99.99", "Error", JOptionPane.ERROR_MESSAGE);
+								.showMessageDialog(adminMainUI, "Enter rates in decimal format between 0.0 and 99.99", "Error", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 				}
@@ -138,7 +138,7 @@ public class ConfigRatesUI {
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-					JOptionPane.showMessageDialog(adminMainUI, "Parking Rates updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(adminMainUI, "Parking Rates successfully updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
 					adminMainUI.showHideContentPanel(adminMainUI.adminUI.mainContentPnl, mainContentPnl);
 				}
 			}

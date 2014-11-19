@@ -13,12 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 public class MainUI extends JFrame implements java.rmi.Remote {
 
-	protected ParkingServerInterface parking;
+	protected ParkingInterface parking;
 	public JPanel mainPnl = new JPanel(new GridBagLayout());
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	protected JLabel messageLbl = new JLabel("");

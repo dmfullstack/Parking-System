@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import a5.fmaster.src.main.java.server.domain.ReportUnit;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -30,7 +30,7 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class ReportsUI {
 
 	private AdminMainUI adminMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	private JPanel reportTypesPnl = new JPanel(new GridBagLayout());
 
@@ -79,12 +79,12 @@ public class ReportsUI {
 
 	private static ReportsUI instance = null;
 
-	private ReportsUI(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	private ReportsUI(AdminMainUI adminMainUI, ParkingInterface parking) {
 		this.adminMainUI = adminMainUI;
 		this.parking = parking;
 	}
 
-	public static ReportsUI getInstance(AdminMainUI adminMainUI, ParkingServerInterface parking) {
+	public static ReportsUI getInstance(AdminMainUI adminMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new ReportsUI(adminMainUI, parking);
 		}
@@ -328,7 +328,7 @@ public class ReportsUI {
 						backToReportsBtn.setVisible(true);
 					} else {
 						JOptionPane
-								.showMessageDialog(adminMainUI, "Enter valid year in the past in format yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
+								.showMessageDialog(adminMainUI, "Enter valid year that is not in the future.", "Error", JOptionPane.ERROR_MESSAGE);
 						monthlyReportGetYearTxt.setText("");
 					}
 				} else {
@@ -351,7 +351,7 @@ public class ReportsUI {
 						backBtn.setVisible(false);
 						backToReportsBtn.setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Enter valid day, month, year in the past in format mm-dd-yyyy.", "Error",
+						JOptionPane.showMessageDialog(adminMainUI, "Enter valid day that is not in the future.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 						hourlyReportGetDayTxt.setText("");
 					}
@@ -375,7 +375,7 @@ public class ReportsUI {
 						backBtn.setVisible(false);
 						backToReportsBtn.setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(adminMainUI, "Enter valid month in the past in format mm-yyyy.", "Error",
+						JOptionPane.showMessageDialog(adminMainUI, "Enter valid month that is not in the future.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 						dailyReportGetMonthTxt.setText("");
 					}

@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import javax.swing.*;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -17,17 +17,22 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
 public class AdminParkingClient {
 	public static void main(String[] args) {
 		try {
-			final ParkingServerInterface psi = (ParkingServerInterface) Naming.lookup("rmi://" + args[0] + ":" + args[1] + "/ParkingService");
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						RemoteObserver client = new AdminParkingObserverImpl(psi);
-						psi.addObserver(client);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+			final ParkingInterface psi = (ParkingInterface) Naming.lookup("rmi://" + args[0] + ":" + args[1] + "/ParkingService");
+			if (!psi.isAdminClientStarted()) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							RemoteObserver client = new AdminParkingObserverImpl(psi);
+							psi.addObserver(client);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
-				}
-			});
+				});
+			}
+			else {
+				throw new Exception("Admin client already started.");
+			}
 		} catch (MalformedURLException murle) {
 			System.out.println("MalformedURLException");
 			System.out.println(murle);
@@ -40,6 +45,8 @@ public class AdminParkingClient {
 		} catch (java.lang.ArithmeticException ae) {
 			System.out.println("java.lang.ArithmeticException");
 			System.out.println(ae);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

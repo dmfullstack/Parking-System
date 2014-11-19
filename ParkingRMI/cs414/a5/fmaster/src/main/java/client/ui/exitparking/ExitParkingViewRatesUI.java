@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.common.ParkingServerInterface;
+import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF
@@ -23,18 +23,18 @@ import a5.fmaster.src.main.java.common.ParkingServerInterface;
  */
 public class ExitParkingViewRatesUI {
 	private ExitParkingMainUI exitParkingMainUI;
-	private ParkingServerInterface parking;
+	private ParkingInterface parking;
 	JPanel mainContentPnl = new JPanel(new GridBagLayout());
 	public JTable parkingRatesTbl = new JTable();
 
 	private static ExitParkingViewRatesUI instance = null;
 
-	private ExitParkingViewRatesUI(ExitParkingMainUI exitParkingMainUI, ParkingServerInterface parking) {
+	private ExitParkingViewRatesUI(ExitParkingMainUI exitParkingMainUI, ParkingInterface parking) {
 		this.exitParkingMainUI = exitParkingMainUI;
 		this.parking = parking;
 	}
 
-	public static ExitParkingViewRatesUI getInstance(ExitParkingMainUI exitParkingMainUI, ParkingServerInterface parking) {
+	public static ExitParkingViewRatesUI getInstance(ExitParkingMainUI exitParkingMainUI, ParkingInterface parking) {
 		if (instance == null) {
 			instance = new ExitParkingViewRatesUI(exitParkingMainUI, parking);
 		}
