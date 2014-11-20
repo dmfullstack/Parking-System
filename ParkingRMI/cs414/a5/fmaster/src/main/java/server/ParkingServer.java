@@ -1,6 +1,7 @@
 package a5.fmaster.src.main.java.server;
 
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;

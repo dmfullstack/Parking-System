@@ -27,7 +27,7 @@ import a5.fmaster.src.main.java.client.ui.admin.LoginUI;
 import a5.fmaster.src.main.java.client.ui.admin.ReportsUI;
 import a5.fmaster.src.main.java.client.ui.enterparking.EnterParkingUI;
 import a5.fmaster.src.main.java.client.ui.enterparking.EnterParkingViewRatesUI;
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 public class ExitParkingMainUI extends MainUI {

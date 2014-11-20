@@ -20,8 +20,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ReportUnit;
-import a5.fmaster.src.main.java.common.ParkingInterface;
 
 /**
  * @author MasterF

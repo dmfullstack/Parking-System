@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 
 public class MainUI extends JFrame implements java.rmi.Remote {

@@ -5,7 +5,7 @@ package a5.fmaster.src.main.java.server.handler;
 
 import java.util.List;
 
-import a5.fmaster.src.main.java.database.ParkingDatabaseAccess;
+import a5.fmaster.src.main.java.server.database.ParkingDatabaseAccess;
 import a5.fmaster.src.main.java.server.domain.Gate;
 import a5.fmaster.src.main.java.server.domain.GateType;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;

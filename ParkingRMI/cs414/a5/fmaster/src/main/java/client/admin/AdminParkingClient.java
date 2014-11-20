@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import javax.swing.*;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 
 /**
  * @author MasterF

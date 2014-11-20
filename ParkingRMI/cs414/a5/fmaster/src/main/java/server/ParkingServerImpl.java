@@ -12,8 +12,8 @@ import java.util.Vector;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.client.admin.AdminParkingObserverImpl;
-import a5.fmaster.src.main.java.common.ParkingInterface;
-import a5.fmaster.src.main.java.database.ParkingDatabaseAccess;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.database.ParkingDatabaseAccess;
 import a5.fmaster.src.main.java.server.domain.ParkingRate;
 import a5.fmaster.src.main.java.server.domain.ReportUnit;
 import a5.fmaster.src.main.java.server.handler.AdminOperationsHandler;
@@ -64,7 +64,7 @@ public class ParkingServerImpl extends Observable implements ParkingInterface {
 
 	private void initializeDB() {
 		db = ParkingDatabaseAccess.getInstance();
-		db.runScript("cs414/a5/fmaster/src/main/java/database/populateDBScript.sql");
+		db.runScript("a5/fmaster/src/main/java/server/database/resources/populateDBScript.sql");
 	}
 
 	private void initializeHandlers() {

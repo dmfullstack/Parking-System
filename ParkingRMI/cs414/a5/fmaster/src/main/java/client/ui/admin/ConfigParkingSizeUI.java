@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 
 /**
  * @author MasterF

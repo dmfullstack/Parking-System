@@ -5,7 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import a5.fmaster.src.main.java.client.RemoteObserver;
 import a5.fmaster.src.main.java.client.ui.exitparking.ExitParkingMainUI;
-import a5.fmaster.src.main.java.common.ParkingInterface;
+import a5.fmaster.src.main.java.server.common.ParkingInterface;
 
 /**
  * @author MasterF

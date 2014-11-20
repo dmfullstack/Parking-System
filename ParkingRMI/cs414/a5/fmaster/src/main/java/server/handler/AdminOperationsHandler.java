@@ -3,7 +3,7 @@
  */
 package a5.fmaster.src.main.java.server.handler;
 
-import a5.fmaster.src.main.java.database.ParkingDatabaseAccess;
+import a5.fmaster.src.main.java.server.database.ParkingDatabaseAccess;
 
 /**
  * @author MasterF
