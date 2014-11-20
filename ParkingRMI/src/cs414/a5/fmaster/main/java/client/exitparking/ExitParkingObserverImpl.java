@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import cs414.a5.fmaster.main.java.client.RemoteObserver;
+import cs414.a5.fmaster.main.java.client.RemoteObserver.ClientType;
 import cs414.a5.fmaster.main.java.client.ui.exitparking.ExitParkingMainUI;
 import cs414.a5.fmaster.main.java.server.ParkingInterface;
 
@@ -14,7 +15,7 @@ import cs414.a5.fmaster.main.java.server.ParkingInterface;
 public class ExitParkingObserverImpl extends UnicastRemoteObject implements RemoteObserver {
 	ExitParkingMainUI exitParkingMainUI;
 	private static final long serialVersionUID = 1L;
-	String clientType = "EXIT";
+	ClientType clientType = ClientType.EXIT;
 
 	protected ExitParkingObserverImpl(ParkingInterface psi) throws RemoteException {
 		super();
@@ -31,6 +32,6 @@ public class ExitParkingObserverImpl extends UnicastRemoteObject implements Remo
 	
 	@Override
 	public String getClientType() throws RemoteException {
-		return clientType;
+		return clientType.toString();
 	}
 }

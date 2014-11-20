@@ -17,7 +17,7 @@ import cs414.a5.fmaster.main.java.server.ParkingInterface;
 import cs414.a5.fmaster.main.java.server.domain.ParkingRate;
 
 public class MainUI extends JFrame implements java.rmi.Remote {
-
+	private static final long serialVersionUID = 1L;
 	protected ParkingInterface parking;
 	public JPanel mainPnl = new JPanel(new GridBagLayout());
 	public JPanel mainContentPnl = new JPanel(new GridBagLayout());

@@ -14,7 +14,7 @@ import cs414.a5.fmaster.main.java.server.ParkingInterface;
 public class AdminParkingObserverImpl extends UnicastRemoteObject implements RemoteObserver {
 	AdminMainUI adminMainUI;
 	private static final long serialVersionUID = 1L;
-	String clientType = "ADMIN";
+	ClientType clientType = ClientType.ADMIN;
 
 	protected AdminParkingObserverImpl(ParkingInterface psi) throws RemoteException {
 		super();
@@ -41,6 +41,6 @@ public class AdminParkingObserverImpl extends UnicastRemoteObject implements Rem
 
 	@Override
 	public String getClientType() throws RemoteException {
-		return clientType;
+		return clientType.toString();
 	}
 }
