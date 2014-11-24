@@ -23,6 +23,7 @@ FOLDER STRUCTURE
 + lib
   - .jar files
 - README.txt
+- commit_log.txt
 
 HOW TO RUN FROM COMMAND LINE
 ----------------------------
@@ -59,6 +60,15 @@ Username: admin
 Password: admin
 Security Q: admin
 Security A: admin
+
+
+STRONG POINTS
+-------------
+Multiple Enter and Exit Parking clients can run independently with successful callback mechanism.
+
+WEAK POINTS
+-----------
+At a time only one Admin Console can be started, to avoid issues such as multiple sessions of same user and different user sessions interfering with each other.
 
 
 PATTERNS USED
