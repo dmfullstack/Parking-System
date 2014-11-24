@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import cs414.a5.fmaster.main.java.client.RemoteObserver;
-import cs414.a5.fmaster.main.java.client.RemoteObserver.ClientType;
 import cs414.a5.fmaster.main.java.client.ui.exitparking.ExitParkingMainUI;
 import cs414.a5.fmaster.main.java.server.ParkingInterface;
 

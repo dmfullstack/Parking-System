@@ -1,31 +1,20 @@
 package cs414.a5.fmaster.main.java.client.ui.admin;
 
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import cs414.a5.fmaster.main.java.client.ui.MainUI;
-import cs414.a5.fmaster.main.java.client.ui.ViewRatesUIInterface;
-import cs414.a5.fmaster.main.java.client.ui.enterparking.EnterParkingUI;
-import cs414.a5.fmaster.main.java.client.ui.exitparking.ExitParkingUI;
 import cs414.a5.fmaster.main.java.server.ParkingInterface;
-import cs414.a5.fmaster.main.java.server.domain.ParkingRate;
 
 public class AdminMainUI extends MainUI {
+	private static final long serialVersionUID = 1L;
 	public AdminViewRatesUI viewRatesUI;
 	private LoginUI loginUI;
 	public AdminUI adminUI;
@@ -62,6 +51,7 @@ public class AdminMainUI extends MainUI {
 	public void setupMainUI() throws RemoteException {
 		setSize(500, 700);
 		setLocationRelativeTo(null);
+		setTitle("Admin Console");  
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(mainPnl);
 		setVisible(true);

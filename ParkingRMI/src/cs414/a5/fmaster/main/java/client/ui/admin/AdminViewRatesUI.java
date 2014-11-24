@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import cs414.a5.fmaster.main.java.client.ui.enterparking.EnterParkingMainUI;
 import cs414.a5.fmaster.main.java.server.ParkingInterface;
 
 /**

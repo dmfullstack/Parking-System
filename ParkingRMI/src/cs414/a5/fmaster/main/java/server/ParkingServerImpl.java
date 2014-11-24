@@ -2,16 +2,13 @@ package cs414.a5.fmaster.main.java.server;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
 import cs414.a5.fmaster.main.java.client.RemoteObserver;
-import cs414.a5.fmaster.main.java.client.admin.AdminParkingObserverImpl;
 import cs414.a5.fmaster.main.java.server.database.ParkingDatabaseAccess;
 import cs414.a5.fmaster.main.java.server.domain.ParkingRate;
 import cs414.a5.fmaster.main.java.server.domain.ReportUnit;
@@ -64,6 +61,7 @@ public class ParkingServerImpl extends Observable implements ParkingInterface {
 	private void initializeDB() {
 		db = ParkingDatabaseAccess.getInstance();
 		db.runScript("cs414/a5/fmaster/main/java/server/database/resources/populateDBScript.sql");
+		db.runScript("src/cs414/a5/fmaster/main/java/server/database/resources/populateDBScript.sql");
 	}
 
 	private void initializeHandlers() {

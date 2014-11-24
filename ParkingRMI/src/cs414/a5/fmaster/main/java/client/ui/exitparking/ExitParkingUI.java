@@ -119,7 +119,7 @@ public class ExitParkingUI {
 		exitParkingMainUI.addGridBagComponent(payment2, creditCardNoTxt, GridBagConstraints.BOTH, 1, 2);
 		exitParkingMainUI.addGridBagComponent(payment2, new JLabel("Security Code : "), GridBagConstraints.BOTH, 0, 3);
 		exitParkingMainUI.addGridBagComponent(payment2, securityCodeTxt, GridBagConstraints.BOTH, 1, 3);
-		exitParkingMainUI.addGridBagComponent(payment2, new JLabel("Exparkingration Date: "), GridBagConstraints.BOTH, 0, 4);
+		exitParkingMainUI.addGridBagComponent(payment2, new JLabel("Expiration Date: "), GridBagConstraints.BOTH, 0, 4);
 		expDateTxt.setText("mm-yyyy");
 		exitParkingMainUI.addGridBagComponent(payment2, expDateTxt, GridBagConstraints.BOTH, 1, 4);
 		JButton submitCreditBtn = new JButton("Submit Credit Details");
@@ -287,7 +287,7 @@ public class ExitParkingUI {
 						parking.closeExitGate();
 						goBack();
 					} else {
-						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment not authorized. Please try again.", "Error",
+						JOptionPane.showMessageDialog(exitParkingMainUI, "Payment not authorized. Card has expired. Please try again.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else {

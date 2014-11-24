@@ -32,7 +32,7 @@ public class AdminParkingClient {
 				});
 			}
 			else {
-				System.out.println("Admin client already started.");
+				System.out.println("Admin client already started. It cannot be started again.");
 			}
 		} catch (MalformedURLException murle) {
 			System.out.println("MalformedURLException");
